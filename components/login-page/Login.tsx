@@ -1,27 +1,32 @@
-import { Text, StyleSheet, View, TextInput, Button, Image } from "react-native";
+import { Text, StyleSheet, View, TextInput } from "react-native";
 import stylesUtil from "../../styling/MainStyles";
+import { useForm, Controller} from "react-hook-form"
 
 function LoginPage(){
+
+const {
+  control,
+  handleSubmit,
+  formState:{errors}
+} = useForm();
+
 return  (
 <View style={loginStyles.container}>
     <Text>JNE</Text>
-    <View style={loginStyles.loginContainer}>   
-        <TextInput 
-            id="Username"
-            placeholder="Username"
-            style={loginStyles.inputBoxTop}/>
-        <TextInput 
-            id="Password"
-            placeholder="Password"
-            secureTextEntry={true}
-            style={loginStyles.inputBoxBottom}/>
-        </View>
-
-        <Button 
-        title="Login"
-        onPress={()=>{
-            //Something
-        }}/>
+   <Controller
+   control={control}
+   rules={{
+    required: true
+   }}
+   render={({ field: {onChange, onBlur, value} }) => (
+    <TextInput
+    onBlur={onBlur}
+    onChangeText={onChange}
+    value={value}
+    />
+   )}
+   name="firstName"
+  />
 </View>
     )
 }
