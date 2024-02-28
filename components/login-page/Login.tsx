@@ -7,7 +7,7 @@ interface LoginData{
     password: String
 }
 
-function LoginPage(){
+function LoginPage({navigation}: any){
 
 const {
   control,
@@ -71,6 +71,9 @@ return  (
    onPress={handleSubmit(onSubmit)}
    />
   </View>
+  <Button title="forgotPassword" onPress={()=>{
+    navigation.navigate("forgotPassword")
+  }}/>
 </View>
     )
 }
