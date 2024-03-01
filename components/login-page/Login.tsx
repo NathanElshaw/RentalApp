@@ -7,7 +7,7 @@ interface LoginData{
     password: String
 }
 
-function LoginPage({navigation}: any){
+function LoginPage({ navigation } : any){
 
 const {
   control,
