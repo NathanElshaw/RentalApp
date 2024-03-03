@@ -2,12 +2,27 @@ import { StyleSheet} from 'react-native';
 import stylesUtil from './styling/MainStyles';
 import LoginPage from './components/login-page/Login';
 import {NavigationContainer} from '@react-navigation/native'
-import MyStack from './Stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-        <MyStack/>
+        <Stack.Navigator>
+                <Stack.Screen
+                name="Login"
+                component={LoginPage}
+                />
+                <Stack.Screen
+                name="forgotPassword"
+                component={ForgotPassword}
+                />
+                <Stack.Screen
+                name="Home"
+                component={Home}
+                />
+            </Stack.Navigator>
     </NavigationContainer>
   );
 }
