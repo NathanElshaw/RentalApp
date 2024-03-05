@@ -8,8 +8,7 @@ import {
 } from "react-native";
 import stylesUtil from "../../styling/MainStyles";
 import { useForm, Controller } from "react-hook-form";
-import { ParamListBase, StackNavigationState } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
 
 interface LoginData {
   username: String;
@@ -20,6 +19,8 @@ function LoginPage({ navigation }: any) {
   const forgotPasswordPress = () => {
     navigation.navigate("forgotPassword");
   };
+
+  const [hasFormError, setFormError] = React.useState<boolean>(false);
 
   const createAccountPress = () => {
     navigation.navigate("createAccount");
@@ -80,7 +81,6 @@ function LoginPage({ navigation }: any) {
                   paddingTop: 2,
                   paddingBottom: 2,
                   fontSize: 18,
-                  width: 250,
                 }}
                 value={value}
                 placeholder="Password"
@@ -89,35 +89,10 @@ function LoginPage({ navigation }: any) {
             )}
             name="password"
           />
-          {errors.password == null ? (
-            ""
-          ) : (
-            <View style={loginStyles.inputBoxErrorContainer}>
-              <Text
-                style={{
-                  fontSize: 12,
-                  margin: 0,
-                  padding: 0,
-                  color: "red",
-                }}
-              >
-                {errors.password && (
-                  <Text
-                    style={{
-                      flex: 1,
-                      fontSize: 12,
-                      margin: 0,
-                      padding: 0,
-                    }}
-                  >
-                    This is required
-                  </Text>
-                )}
-              </Text>
-            </View>
-          )}
         </View>
       </View>
+      <Text>{errors.password?.message}</Text>
+
       <View style={loginStyles.ctaContainer}>
         <Pressable onPress={forgotPasswordPress}>
           <Text>Forgot password</Text>
@@ -144,25 +119,19 @@ const loginStyles = StyleSheet.create({
   },
   loginContainer: {
     height: 90,
+    rowGap: 5,
     width: 260,
   },
   inputBoxTop: {
-    flex: 1,
     borderWidth: 1,
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-    borderColor: stylesUtil.mainColor,
+    borderRadius: 5,
+    borderColor: "Black",
     padding: 4,
   },
   inputBoxBottom: {
-    flex: 1,
-    flexWrap: "wrap",
     borderWidth: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10,
-    borderColor: stylesUtil.mainColor,
+    borderRadius: 5,
+    borderColor: "Black",
     padding: 4,
   },
   inputBoxErrorContainer: {
