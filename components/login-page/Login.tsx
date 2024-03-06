@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import stylesUtil from "../../styling/MainStyles";
 import { useForm, Controller } from "react-hook-form";
-import React from "react";
+import { useState } from "react";
 
 interface LoginData {
   username: String;
@@ -16,11 +16,11 @@ interface LoginData {
 }
 
 function LoginPage({ navigation }: any) {
+  const [loginError, setLoginError] = useState<String>();
+
   const forgotPasswordPress = () => {
     navigation.navigate("forgotPassword");
   };
-
-  const [hasFormError, setFormError] = React.useState<boolean>(false);
 
   const createAccountPress = () => {
     navigation.navigate("createAccount");
@@ -90,21 +90,60 @@ function LoginPage({ navigation }: any) {
             name="password"
           />
         </View>
+        {loginError != null ? (
+          <Text
+            style={{
+              fontSize: 10,
+              color: "red",
+            }}
+          >
+            {loginError}
+          </Text>
+        ) : (
+          ""
+        )}
       </View>
-      <Text>{errors.password?.message}</Text>
 
       <View style={loginStyles.ctaContainer}>
         <Pressable onPress={forgotPasswordPress}>
-          <Text>Forgot password</Text>
+          <Text
+            style={{
+              fontSize: 12,
+            }}
+          >
+            Forgot password
+          </Text>
         </Pressable>
 
         <Pressable onPress={createAccountPress}>
-          <Text>Create Account</Text>
+          <Text
+            style={{
+              fontSize: 12,
+            }}
+          >
+            Create Account
+          </Text>
         </Pressable>
       </View>
 
-      <View>
-        <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      <View
+        style={{
+          marginTop: 5,
+        }}
+      >
+        <Pressable
+          style={loginStyles.loginButton}
+          onPress={handleSubmit(onSubmit)}
+        >
+          <Text
+            style={{
+              color: "white",
+              fontSize: 20,
+            }}
+          >
+            Log in
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -118,20 +157,22 @@ const loginStyles = StyleSheet.create({
     justifyContent: "center",
   },
   loginContainer: {
-    height: 90,
-    rowGap: 5,
+    paddingTop: 5,
+    paddingHorizontal: 5,
     width: 260,
   },
   inputBoxTop: {
     borderWidth: 1,
     borderRadius: 5,
     borderColor: "Black",
+    marginBottom: 2.5,
     padding: 4,
   },
   inputBoxBottom: {
     borderWidth: 1,
     borderRadius: 5,
     borderColor: "Black",
+    marginTop: 2.5,
     padding: 4,
   },
   inputBoxErrorContainer: {
@@ -139,10 +180,16 @@ const loginStyles = StyleSheet.create({
     padding: 0,
   },
   ctaContainer: {
-    columnGap: 20,
+    columnGap: 30,
     marginTop: 0,
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  loginButton: {
+    paddingHorizontal: 28,
+    paddingVertical: 8,
+    borderRadius: 5,
+    backgroundColor: stylesUtil.mainColor,
   },
 });
 
