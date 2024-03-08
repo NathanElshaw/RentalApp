@@ -32,17 +32,20 @@ function CreateAccount({ navigation }: any) {
           <Text>Back</Text>
         </Pressable>
       </View>
+      <Text>Start creating an account!</Text>
       <View style={SignUpStyles.ctaContainer}>
-        <Pressable onPress={proceedCreateAccount}>
+        <Pressable
+          style={SignUpStyles.createAccountButton}
+          onPress={proceedCreateAccount}
+        >
           <Text>Create Account</Text>
         </Pressable>
-        <Pressable onPress={proceedWithCode}>
+        <Pressable
+          style={SignUpStyles.codeAccountButton}
+          onPress={proceedWithCode}
+        >
           <Text>I have a code!</Text>
         </Pressable>
-        <Text>
-          {formType}
-          {formStep}
-        </Text>
       </View>
     </View>
   );
@@ -60,6 +63,18 @@ const SignUpStyles = StyleSheet.create({
     flexDirection: "row",
     columnGap: 10,
     justifyContent: "space-between",
+  },
+  createAccountButton: {
+    backgroundColor: "#39e75f",
+    paddingHorizontal: 28,
+    paddingVertical: 12,
+    borderRadius: 5,
+  },
+  codeAccountButton: {
+    backgroundColor: "#66b2b2",
+    paddingHorizontal: 28,
+    paddingVertical: 12,
+    borderRadius: 5,
   },
 });
 
