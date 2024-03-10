@@ -52,28 +52,49 @@ function CreateAccount({ navigation }: any) {
       {formStep == 0 ? (
         <View>
           <Text>Start creating an account!</Text>
-          <View style={SignUpStyles.ctaContainer}>
-            <Pressable
-              style={SignUpStyles.createAccountButton}
-              onPress={proceedCreateAccount}
-            >
-              <Text>Create Account</Text>
-            </Pressable>
-            <Pressable
-              style={SignUpStyles.codeAccountButton}
-              onPress={proceedWithCode}
-            >
-              <Text>I have a code!</Text>
-            </Pressable>
-          </View>
+          <View style={SignUpStyles.ctaContainer}></View>
         </View>
       ) : formStep == 1 ? (
-        <Pressable onPress={goBack}>
-          <Text>Back</Text>
-        </Pressable>
+        ""
       ) : (
         ""
       )}
+      <View
+        style={{
+          flexDirection: "row",
+          columnGap: 10,
+        }}
+      >
+        {formStep >= 1 ? (
+          <Pressable onPress={goBack} style={SignUpStyles.goBackButton}>
+            <Text
+              style={{
+                color: "white",
+              }}
+            >
+              Back
+            </Text>
+          </Pressable>
+        ) : (
+          ""
+        )}
+        {formStep <= 6 ? (
+          <Pressable
+            style={SignUpStyles.proceedButton}
+            onPress={proceedCreateAccount}
+          >
+            <Text
+              style={{
+                color: "white",
+              }}
+            >
+              Next
+            </Text>
+          </Pressable>
+        ) : (
+          ""
+        )}
+      </View>
     </View>
   );
 }
@@ -91,14 +112,14 @@ const SignUpStyles = StyleSheet.create({
     columnGap: 10,
     justifyContent: "space-between",
   },
-  createAccountButton: {
+  proceedButton: {
     backgroundColor: "#39e75f",
     paddingHorizontal: 28,
     paddingVertical: 12,
     borderRadius: 5,
   },
-  codeAccountButton: {
-    backgroundColor: "#66b2b2",
+  goBackButton: {
+    backgroundColor: "blue",
     paddingHorizontal: 28,
     paddingVertical: 12,
     borderRadius: 5,
