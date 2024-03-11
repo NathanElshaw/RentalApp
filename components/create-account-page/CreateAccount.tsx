@@ -1,7 +1,7 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import stylesUtil from "../../styling/MainStyles";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 interface signUpForm {}
 
@@ -38,7 +38,7 @@ function CreateAccount({ navigation }: any) {
       <View
         style={{
           borderWidth: 1,
-          alignContent: "flex-start",
+          flexDirection: "column",
         }}
       >
         <Pressable
@@ -50,9 +50,55 @@ function CreateAccount({ navigation }: any) {
         </Pressable>
       </View>
       {formStep == 0 ? (
-        <View>
-          <Text>Start creating an account!</Text>
-          <View style={SignUpStyles.ctaContainer}></View>
+        <View
+          style={{
+            marginHorizontal: "auto",
+          }}
+        >
+          <Text
+            style={{
+              fontWeight: "400",
+              fontSize: 24,
+              marginBottom: 10,
+              marginHorizontal: "auto",
+            }}
+          >
+            Start creating an account!
+          </Text>
+          <View style={SignUpStyles.formContainer}>
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  style={SignUpStyles.formInput}
+                  value={value}
+                  placeholder="First name"
+                />
+              )}
+              name="firstName"
+            />
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  style={SignUpStyles.formInput}
+                  value={value}
+                  placeholder="Last name"
+                />
+              )}
+              name="lastName"
+            />
+          </View>
         </View>
       ) : formStep == 1 ? (
         ""
@@ -62,7 +108,7 @@ function CreateAccount({ navigation }: any) {
       <View
         style={{
           flexDirection: "row",
-          columnGap: 10,
+          rowGap: 10,
         }}
       >
         {formStep >= 1 ? (
@@ -75,6 +121,8 @@ function CreateAccount({ navigation }: any) {
               Back
             </Text>
           </Pressable>
+        ) : formStep == 1 ? (
+          ""
         ) : (
           ""
         )}
@@ -104,13 +152,26 @@ const SignUpStyles = StyleSheet.create({
     flex: 1,
     borderWidth: 1,
     backgroundColor: stylesUtil.mainWhite,
-    alignItems: "center",
     justifyContent: "center",
   },
   ctaContainer: {
     flexDirection: "row",
     columnGap: 10,
     justifyContent: "space-between",
+  },
+  formContainer: {
+    flexDirection: "column",
+    rowGap: 5,
+  },
+  formInput: {
+    borderWidth: 1,
+    borderColor: "black",
+    marginHorizontal: 10,
+    borderRadius: 5,
+    paddingTop: 4,
+    paddingHorizontal: 10,
+    paddingBottom: 2,
+    fontSize: 18,
   },
   proceedButton: {
     backgroundColor: "#39e75f",
