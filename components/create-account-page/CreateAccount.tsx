@@ -37,8 +37,7 @@ function CreateAccount({ navigation }: any) {
     <View style={SignUpStyles.container}>
       <View
         style={{
-          borderWidth: 1,
-          flexDirection: "column",
+          marginLeft: 5,
         }}
       >
         <Pressable
@@ -46,13 +45,13 @@ function CreateAccount({ navigation }: any) {
             navigation.goBack();
           }}
         >
-          <Text>{"<"}</Text>
+          <Text>Back</Text>
         </Pressable>
       </View>
       {formStep == 0 ? (
         <View
           style={{
-            marginHorizontal: "auto",
+            alignItems: "center",
           }}
         >
           <Text
@@ -60,7 +59,6 @@ function CreateAccount({ navigation }: any) {
               fontWeight: "400",
               fontSize: 24,
               marginBottom: 10,
-              marginHorizontal: "auto",
             }}
           >
             Start creating an account!
@@ -107,19 +105,15 @@ function CreateAccount({ navigation }: any) {
       )}
       <View
         style={{
+          marginTop: 5,
+          justifyContent: "center",
           flexDirection: "row",
-          rowGap: 10,
+          columnGap: 10,
         }}
       >
         {formStep >= 1 ? (
           <Pressable onPress={goBack} style={SignUpStyles.goBackButton}>
-            <Text
-              style={{
-                color: "white",
-              }}
-            >
-              Back
-            </Text>
+            <Text style={SignUpStyles.buttonText}>Back</Text>
           </Pressable>
         ) : formStep == 1 ? (
           ""
@@ -131,13 +125,7 @@ function CreateAccount({ navigation }: any) {
             style={SignUpStyles.proceedButton}
             onPress={proceedCreateAccount}
           >
-            <Text
-              style={{
-                color: "white",
-              }}
-            >
-              Next
-            </Text>
+            <Text style={SignUpStyles.buttonText}>Next</Text>
           </Pressable>
         ) : (
           ""
@@ -167,21 +155,27 @@ const SignUpStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     marginHorizontal: 10,
+    width: 250,
     borderRadius: 5,
     paddingTop: 4,
     paddingHorizontal: 10,
     paddingBottom: 2,
     fontSize: 18,
   },
+  buttonText: {
+    color: "white",
+    fontWeight: "700",
+    fontSize: 20,
+  },
   proceedButton: {
     backgroundColor: "#39e75f",
-    paddingHorizontal: 28,
+    paddingHorizontal: 56,
     paddingVertical: 12,
     borderRadius: 5,
   },
   goBackButton: {
     backgroundColor: "blue",
-    paddingHorizontal: 28,
+    paddingHorizontal: 56,
     paddingVertical: 12,
     borderRadius: 5,
   },
