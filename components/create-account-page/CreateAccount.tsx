@@ -99,7 +99,62 @@ function CreateAccount({ navigation }: any) {
           </View>
         </View>
       ) : formStep == 1 ? (
-        ""
+        <View
+          style={{
+            alignItems: "center",
+          }}
+        >
+          <View style={SignUpStyles.formContainer}>
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  style={SignUpStyles.formInput}
+                  value={value}
+                  placeholder="Username"
+                />
+              )}
+              name="username"
+            />
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  style={SignUpStyles.formInput}
+                  value={value}
+                  placeholder="Password"
+                />
+              )}
+              name="password"
+            />
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  style={SignUpStyles.formInput}
+                  value={value}
+                  placeholder="Confirm Password"
+                />
+              )}
+              name="confirmPassword"
+            />
+          </View>
+        </View>
       ) : (
         ""
       )}
@@ -153,30 +208,31 @@ const SignUpStyles = StyleSheet.create({
   },
   formInput: {
     borderWidth: 1,
-    borderColor: "black",
+    borderBottomColor: "black",
+    borderColor: stylesUtil.mainWhite,
     marginHorizontal: 10,
     width: 250,
     borderRadius: 5,
     paddingTop: 4,
     paddingHorizontal: 10,
-    paddingBottom: 2,
+    paddingBottom: 4,
     fontSize: 18,
   },
   buttonText: {
     color: "white",
     fontWeight: "700",
-    fontSize: 20,
+    fontSize: 16,
   },
   proceedButton: {
     backgroundColor: "#39e75f",
     paddingHorizontal: 56,
-    paddingVertical: 12,
+    paddingVertical: 6,
     borderRadius: 5,
   },
   goBackButton: {
     backgroundColor: "blue",
     paddingHorizontal: 56,
-    paddingVertical: 12,
+    paddingVertical: 6,
     borderRadius: 5,
   },
 });
