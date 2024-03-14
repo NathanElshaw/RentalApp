@@ -64,6 +64,7 @@ function CreateAccount({ navigation }: any) {
             Start creating an account!
           </Text>
           <View style={SignUpStyles.formContainer}>
+            <Text>Name:</Text>
             <Controller
               control={control}
               rules={{
@@ -80,6 +81,7 @@ function CreateAccount({ navigation }: any) {
               )}
               name="firstName"
             />
+            <Text>Email:</Text>
             <Controller
               control={control}
               rules={{
@@ -105,6 +107,7 @@ function CreateAccount({ navigation }: any) {
           }}
         >
           <View style={SignUpStyles.formContainer}>
+            <Text>Username:</Text>
             <Controller
               control={control}
               rules={{
@@ -121,6 +124,7 @@ function CreateAccount({ navigation }: any) {
               )}
               name="username"
             />
+            <Text>Password:</Text>
             <Controller
               control={control}
               rules={{
@@ -133,10 +137,12 @@ function CreateAccount({ navigation }: any) {
                   style={SignUpStyles.formInput}
                   value={value}
                   placeholder="Password"
+                  secureTextEntry
                 />
               )}
               name="password"
             />
+            <Text>Confirm password:</Text>
             <Controller
               control={control}
               rules={{
@@ -149,6 +155,7 @@ function CreateAccount({ navigation }: any) {
                   style={SignUpStyles.formInput}
                   value={value}
                   placeholder="Confirm Password"
+                  secureTextEntry
                 />
               )}
               name="confirmPassword"
@@ -162,19 +169,11 @@ function CreateAccount({ navigation }: any) {
         style={{
           marginTop: 5,
           justifyContent: "center",
-          flexDirection: "row",
-          columnGap: 10,
+          alignItems: "center",
+          flexDirection: "column",
+          rowGap: 10,
         }}
       >
-        {formStep >= 1 ? (
-          <Pressable onPress={goBack} style={SignUpStyles.goBackButton}>
-            <Text style={SignUpStyles.buttonText}>Back</Text>
-          </Pressable>
-        ) : formStep == 1 ? (
-          ""
-        ) : (
-          ""
-        )}
         {formStep <= 6 ? (
           <Pressable
             style={SignUpStyles.proceedButton}
@@ -182,6 +181,15 @@ function CreateAccount({ navigation }: any) {
           >
             <Text style={SignUpStyles.buttonText}>Next</Text>
           </Pressable>
+        ) : (
+          ""
+        )}
+        {formStep >= 1 ? (
+          <Pressable onPress={goBack} style={SignUpStyles.goBackButton}>
+            <Text style={SignUpStyles.buttonText}>Back</Text>
+          </Pressable>
+        ) : formStep == 1 ? (
+          ""
         ) : (
           ""
         )}
@@ -213,7 +221,7 @@ const SignUpStyles = StyleSheet.create({
     marginHorizontal: 10,
     width: 250,
     borderRadius: 5,
-    paddingTop: 4,
+    marginBottom: 5,
     paddingHorizontal: 10,
     paddingBottom: 4,
     fontSize: 18,
@@ -225,15 +233,17 @@ const SignUpStyles = StyleSheet.create({
   },
   proceedButton: {
     backgroundColor: "#39e75f",
-    paddingHorizontal: 56,
-    paddingVertical: 6,
-    borderRadius: 5,
+    width: 260,
+    paddingVertical: 8,
+    alignItems: "center",
+    borderRadius: 20,
   },
   goBackButton: {
     backgroundColor: "blue",
-    paddingHorizontal: 56,
-    paddingVertical: 6,
-    borderRadius: 5,
+    width: 260,
+    paddingVertical: 8,
+    alignItems: "center",
+    borderRadius: 20,
   },
 });
 
