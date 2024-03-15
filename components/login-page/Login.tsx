@@ -1,14 +1,14 @@
-import {
-  Text,
-  StyleSheet,
-  View,
-  TextInput,
-  Button,
-  Pressable,
-} from "react-native";
+import { Text, StyleSheet, View, TextInput, Pressable } from "react-native";
 import stylesUtil from "../../styling/MainStyles";
 import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
+
+/*
+Todo:
+add logo image
+Api fetch for login
+add background items
+*/
 
 interface LoginData {
   username: String;
@@ -45,7 +45,8 @@ function LoginPage({ navigation }: any) {
     <View style={loginStyles.container}>
       <Text>JNE</Text>
       <View style={loginStyles.loginContainer}>
-        <View style={loginStyles.inputBoxTop}>
+        <Text>Username:</Text>
+        <View style={loginStyles.inputBox}>
           <Controller
             control={control}
             rules={{
@@ -67,7 +68,8 @@ function LoginPage({ navigation }: any) {
             name="username"
           />
         </View>
-        <View style={loginStyles.inputBoxBottom}>
+        <Text>Password:</Text>
+        <View style={loginStyles.inputBox}>
           <Controller
             control={control}
             rules={{
@@ -159,21 +161,20 @@ const loginStyles = StyleSheet.create({
   loginContainer: {
     paddingTop: 5,
     paddingHorizontal: 5,
+    alignContent: "center",
+    justifyContent: "center",
     width: 260,
   },
-  inputBoxTop: {
+  inputBox: {
     borderWidth: 1,
+    borderBottomColor: "black",
+    borderColor: stylesUtil.mainWhite,
+    marginHorizontal: 10,
     borderRadius: 5,
-    borderColor: "Black",
-    marginBottom: 2.5,
-    padding: 4,
-  },
-  inputBoxBottom: {
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: "Black",
-    marginTop: 2.5,
-    padding: 4,
+    marginBottom: 5,
+    paddingHorizontal: 10,
+    paddingBottom: 4,
+    fontSize: 18,
   },
   inputBoxErrorContainer: {
     margin: 0,
