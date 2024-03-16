@@ -106,24 +106,14 @@ function LoginPage({ navigation }: any) {
         )}
       </View>
 
-      <View style={loginStyles.ctaContainer}>
+      <View style={loginStyles.fpContainer}>
         <Pressable onPress={forgotPasswordPress}>
           <Text
             style={{
               fontSize: 12,
             }}
           >
-            Forgot password
-          </Text>
-        </Pressable>
-
-        <Pressable onPress={createAccountPress}>
-          <Text
-            style={{
-              fontSize: 12,
-            }}
-          >
-            Create Account
+            Forgot password?
           </Text>
         </Pressable>
       </View>
@@ -147,6 +137,7 @@ function LoginPage({ navigation }: any) {
           </Text>
         </Pressable>
       </View>
+      <View style={loginStyles.createAccCta}></View>
     </View>
   );
 }
@@ -155,10 +146,12 @@ const loginStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: stylesUtil.mainWhite,
+    alignContent: "center",
     alignItems: "center",
     justifyContent: "center",
   },
   loginContainer: {
+    borderWidth: 1,
     paddingTop: 5,
     paddingHorizontal: 5,
     alignContent: "center",
@@ -180,17 +173,21 @@ const loginStyles = StyleSheet.create({
     margin: 0,
     padding: 0,
   },
-  ctaContainer: {
-    columnGap: 30,
-    marginTop: 0,
-    flexDirection: "row",
-    justifyContent: "space-between",
+  fpContainer: {
+    borderWidth: 1,
+    width: 250,
+    marginTop: -1,
+    alignItems: "flex-end",
   },
   loginButton: {
     paddingHorizontal: 28,
     paddingVertical: 8,
     borderRadius: 5,
     backgroundColor: stylesUtil.mainColor,
+  },
+  createAccCta: {
+    flex: 1,
+    borderWidth: 1,
   },
 });
 
