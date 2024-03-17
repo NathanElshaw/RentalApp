@@ -1,4 +1,11 @@
-import { Text, StyleSheet, View, TextInput, Pressable } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  TextInput,
+  Pressable,
+  Image,
+} from "react-native";
 import stylesUtil from "../../styling/MainStyles";
 import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
@@ -43,7 +50,17 @@ function LoginPage({ navigation }: any) {
 
   return (
     <View style={loginStyles.container}>
-      <Text>JNE</Text>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "flex-end",
+        }}
+      >
+        <Image
+          style={{ width: 75, height: 75 }}
+          source={require("../../assets/iconMain.png")}
+        />
+      </View>
       <View style={loginStyles.loginContainer}>
         <Text>Username:</Text>
         <View style={loginStyles.inputBox}>
@@ -104,40 +121,59 @@ function LoginPage({ navigation }: any) {
         ) : (
           ""
         )}
-      </View>
 
-      <View style={loginStyles.fpContainer}>
-        <Pressable onPress={forgotPasswordPress}>
-          <Text
-            style={{
-              fontSize: 12,
-            }}
-          >
-            Forgot password?
-          </Text>
-        </Pressable>
-      </View>
+        <View style={loginStyles.fpContainer}>
+          <Pressable onPress={forgotPasswordPress}>
+            <Text
+              style={{
+                fontSize: 12,
+              }}
+            >
+              Forgot password?
+            </Text>
+          </Pressable>
+        </View>
 
-      <View
-        style={{
-          marginTop: 5,
-        }}
-      >
-        <Pressable
-          style={loginStyles.loginButton}
-          onPress={handleSubmit(onSubmit)}
+        <View
+          style={{
+            marginTop: 5,
+            alignItems: "center",
+          }}
         >
+          <Pressable
+            style={loginStyles.loginButton}
+            onPress={handleSubmit(onSubmit)}
+          >
+            <Text
+              style={{
+                color: "white",
+                fontSize: 20,
+              }}
+            >
+              Log in
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+      <View style={loginStyles.createAccCta}>
+        <Text
+          style={{
+            fontSize: 16,
+          }}
+        >
+          Don't have an Account?
+        </Text>
+        <Pressable onPress={createAccountPress}>
           <Text
             style={{
-              color: "white",
-              fontSize: 20,
+              color: "blue",
+              fontSize: 16,
             }}
           >
-            Log in
+            Register
           </Text>
         </Pressable>
       </View>
-      <View style={loginStyles.createAccCta}></View>
     </View>
   );
 }
@@ -151,8 +187,7 @@ const loginStyles = StyleSheet.create({
     justifyContent: "center",
   },
   loginContainer: {
-    borderWidth: 1,
-    paddingTop: 5,
+    flex: 3,
     paddingHorizontal: 5,
     alignContent: "center",
     justifyContent: "center",
@@ -174,20 +209,21 @@ const loginStyles = StyleSheet.create({
     padding: 0,
   },
   fpContainer: {
-    borderWidth: 1,
     width: 250,
     marginTop: -1,
     alignItems: "flex-end",
   },
   loginButton: {
-    paddingHorizontal: 28,
-    paddingVertical: 8,
-    borderRadius: 5,
+    paddingHorizontal: 40,
+    paddingVertical: 10,
+    borderRadius: 15,
     backgroundColor: stylesUtil.mainColor,
   },
   createAccCta: {
-    flex: 1,
-    borderWidth: 1,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    columnGap: 4,
+    paddingBottom: 40,
   },
 });
 
