@@ -53,6 +53,7 @@ function LoginPage({ navigation }: any) {
       <View
         style={{
           flex: 1,
+          marginTop: 30,
           justifyContent: "flex-end",
         }}
       >
@@ -126,7 +127,8 @@ function LoginPage({ navigation }: any) {
           <Pressable onPress={forgotPasswordPress}>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 14,
+                color: "blue",
               }}
             >
               Forgot password?
