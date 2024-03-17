@@ -1,27 +1,32 @@
 import { StyleSheet } from "react-native";
 import stylesUtil from "./styling/MainStyles";
 import LoginPage from "./components/login-page/Login";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  NavigationContainer,
+  getFocusedRouteNameFromRoute,
+} from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ForgotPassword from "./components/forgot-password-page/ForgotPassword";
 import Home from "./components/home-page/Home-Page";
 import CreateAccount from "./components/create-account-page/CreateAccount";
+import React from "react";
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
+      <Tab.Navigator
         screenOptions={{
           headerShown: false,
+          tabBarStyle: { display: "none" },
         }}
       >
-        <Stack.Screen name="Login" component={LoginPage} />
-        <Stack.Screen name="forgotPassword" component={ForgotPassword} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="createAccount" component={CreateAccount} />
-      </Stack.Navigator>
+        <Tab.Screen name="Login" component={LoginPage} />
+        <Tab.Screen name="forgotPassword" component={ForgotPassword} />
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="createAccount" component={CreateAccount} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
