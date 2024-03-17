@@ -38,6 +38,7 @@ function CreateAccount({ navigation }: any) {
       <View
         style={{
           marginLeft: 5,
+          marginBottom: 50,
         }}
       >
         <Pressable
@@ -45,126 +46,127 @@ function CreateAccount({ navigation }: any) {
             navigation.goBack();
           }}
         >
-          <Text>Back</Text>
-        </Pressable>
-      </View>
-      {formStep == 0 ? (
-        <View
-          style={{
-            alignItems: "center",
-          }}
-        >
           <Text
             style={{
-              fontWeight: "400",
-              fontSize: 24,
-              marginBottom: 10,
+              fontSize: 16,
             }}
           >
-            Start creating an account!
+            Return
           </Text>
-          <View style={SignUpStyles.formContainer}>
-            <Text>Name:</Text>
-            <Controller
-              control={control}
-              rules={{
-                required: true,
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  style={SignUpStyles.formInput}
-                  value={value}
-                  placeholder="First name"
-                />
-              )}
-              name="firstName"
-            />
-            <Text>Email:</Text>
-            <Controller
-              control={control}
-              rules={{
-                required: true,
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  style={SignUpStyles.formInput}
-                  value={value}
-                  placeholder="Last name"
-                />
-              )}
-              name="lastName"
-            />
-          </View>
-        </View>
-      ) : formStep == 1 ? (
-        <View
+        </Pressable>
+      </View>
+      <View
+        style={{
+          alignItems: "center",
+        }}
+      >
+        <Text
           style={{
-            alignItems: "center",
+            fontWeight: "400",
+            fontSize: 24,
+            marginBottom: 10,
           }}
         >
-          <View style={SignUpStyles.formContainer}>
-            <Text>Username:</Text>
-            <Controller
-              control={control}
-              rules={{
-                required: true,
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  style={SignUpStyles.formInput}
-                  value={value}
-                  placeholder="Username"
-                />
-              )}
-              name="username"
-            />
-            <Text>Password:</Text>
-            <Controller
-              control={control}
-              rules={{
-                required: true,
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  style={SignUpStyles.formInput}
-                  value={value}
-                  placeholder="Password"
-                  secureTextEntry
-                />
-              )}
-              name="password"
-            />
-            <Text>Confirm password:</Text>
-            <Controller
-              control={control}
-              rules={{
-                required: true,
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  style={SignUpStyles.formInput}
-                  value={value}
-                  placeholder="Confirm Password"
-                  secureTextEntry
-                />
-              )}
-              name="confirmPassword"
-            />
-          </View>
+          Start creating an account!
+        </Text>
+        <View style={SignUpStyles.formContainer}>
+          <Text>Name:</Text>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                onBlur={onBlur}
+                onChangeText={onChange}
+                style={SignUpStyles.formInput}
+                value={value}
+                placeholder="Marvin Mcfadden"
+              />
+            )}
+            name="name"
+          />
+          <Text>Email:</Text>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                onBlur={onBlur}
+                onChangeText={onChange}
+                style={SignUpStyles.formInput}
+                value={value}
+                placeholder="Email@example.com"
+              />
+            )}
+            name="email"
+          />
         </View>
-      ) : (
-        ""
-      )}
+      </View>
+      <View
+        style={{
+          alignItems: "center",
+        }}
+      >
+        <View style={SignUpStyles.formContainer}>
+          <Text>Username:</Text>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                onBlur={onBlur}
+                onChangeText={onChange}
+                style={SignUpStyles.formInput}
+                value={value}
+                placeholder="Username"
+              />
+            )}
+            name="username"
+          />
+          <Text>Password:</Text>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                onBlur={onBlur}
+                onChangeText={onChange}
+                style={SignUpStyles.formInput}
+                value={value}
+                placeholder="Password"
+                secureTextEntry
+              />
+            )}
+            name="password"
+          />
+          <Text>Confirm password:</Text>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <TextInput
+                onBlur={onBlur}
+                onChangeText={onChange}
+                style={SignUpStyles.formInput}
+                value={value}
+                placeholder="Confirm Password"
+                secureTextEntry
+              />
+            )}
+            name="confirmPassword"
+          />
+        </View>
+      </View>
       <View
         style={{
           marginTop: 5,
@@ -174,25 +176,12 @@ function CreateAccount({ navigation }: any) {
           rowGap: 10,
         }}
       >
-        {formStep <= 6 ? (
-          <Pressable
-            style={SignUpStyles.proceedButton}
-            onPress={proceedCreateAccount}
-          >
-            <Text style={SignUpStyles.buttonText}>Next</Text>
-          </Pressable>
-        ) : (
-          ""
-        )}
-        {formStep >= 1 ? (
-          <Pressable onPress={goBack} style={SignUpStyles.goBackButton}>
-            <Text style={SignUpStyles.buttonText}>Back</Text>
-          </Pressable>
-        ) : formStep == 1 ? (
-          ""
-        ) : (
-          ""
-        )}
+        <Pressable
+          style={SignUpStyles.proceedButton}
+          onPress={proceedCreateAccount}
+        >
+          <Text style={SignUpStyles.buttonText}>Sign up</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -232,14 +221,7 @@ const SignUpStyles = StyleSheet.create({
     fontSize: 16,
   },
   proceedButton: {
-    backgroundColor: "#39e75f",
-    width: 260,
-    paddingVertical: 8,
-    alignItems: "center",
-    borderRadius: 20,
-  },
-  goBackButton: {
-    backgroundColor: "blue",
+    backgroundColor: stylesUtil.mainColor,
     width: 260,
     paddingVertical: 8,
     alignItems: "center",
