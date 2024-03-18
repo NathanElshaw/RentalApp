@@ -5,9 +5,13 @@ import {
   Text,
   TextInput,
   View,
+  Dimensions,
 } from "react-native";
 import stylesUtil from "../../styling/MainStyles";
 import { Controller, useForm } from "react-hook-form";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 function ForgotPassword({ navigation }: any) {
   const {
@@ -16,12 +20,29 @@ function ForgotPassword({ navigation }: any) {
     formState: { errors },
   } = useForm();
 
+  const goBack = () => {
+    navigation.goBack();
+  };
+
   const createAccountPress = () => {
     navigation.navigate("createAccount");
   };
 
   return (
     <View style={fpStyle.container}>
+      <View style={fpStyle.headerContainer}>
+        <Pressable onPress={goBack}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: "500",
+              color: "blue",
+            }}
+          >
+            Back
+          </Text>
+        </Pressable>
+      </View>
       <View style={fpStyle.formContainer}>
         <Text
           style={{
@@ -117,6 +138,12 @@ const fpStyle = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  headerContainer: {
+    width: windowWidth - 50,
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "flex-end",
+  },
   formContainer: {
     flex: 10,
     flexDirection: "column",
@@ -127,7 +154,7 @@ const fpStyle = StyleSheet.create({
     borderBottomColor: "black",
     borderColor: stylesUtil.mainWhite,
     marginHorizontal: 10,
-    width: 250,
+    width: windowWidth - 120,
     borderRadius: 5,
     marginBottom: 5,
     paddingHorizontal: 10,
@@ -136,7 +163,7 @@ const fpStyle = StyleSheet.create({
   },
   ctaButton: {
     backgroundColor: stylesUtil.mainColor,
-    width: 260,
+    width: windowWidth - 100,
     paddingVertical: 8,
     alignItems: "center",
     borderRadius: 20,
