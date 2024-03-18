@@ -5,6 +5,7 @@ import {
   TextInput,
   Pressable,
   Image,
+  Dimensions,
 } from "react-native";
 import stylesUtil from "../../styling/MainStyles";
 import { useForm, Controller } from "react-hook-form";
@@ -21,6 +22,9 @@ interface LoginData {
   username: String;
   password: String;
 }
+
+const windowWidth: number = Dimensions.get("window").width;
+const windowHeight: number = Dimensions.get("window").height;
 
 function LoginPage({ navigation }: any) {
   const [loginError, setLoginError] = useState<String>();
@@ -193,7 +197,7 @@ const loginStyles = StyleSheet.create({
     paddingHorizontal: 5,
     alignContent: "center",
     justifyContent: "center",
-    width: 260,
+    width: windowWidth - 80,
   },
   inputBox: {
     borderWidth: 1,
@@ -211,7 +215,7 @@ const loginStyles = StyleSheet.create({
     padding: 0,
   },
   fpContainer: {
-    width: 250,
+    width: windowWidth - 110,
     marginTop: -1,
     alignItems: "flex-end",
   },
