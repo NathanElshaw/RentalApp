@@ -37,6 +37,10 @@ function LoginPage({ navigation }: any) {
     navigation.navigate("createAccount");
   };
 
+  const clearLoginError = () => {
+    loginError != null ? setLoginError(null as unknown as String) : "";
+  };
+
   const {
     control,
     handleSubmit,
@@ -48,8 +52,8 @@ function LoginPage({ navigation }: any) {
     },
   });
 
-  const onSubmit = (data: LoginData) => {
-    console.log(data);
+  const login = (data: LoginData) => {
+    setLoginError("Invalid username or password.");
   };
 
   return (
@@ -68,7 +72,19 @@ function LoginPage({ navigation }: any) {
       </View>
       <View style={loginStyles.loginContainer}>
         <Text>Username:</Text>
-        <View style={loginStyles.inputBox}>
+        <View
+          style={{
+            ...loginStyles.inputBox,
+            borderColor:
+              errors.username?.type === "required" || loginError != null
+                ? "red"
+                : stylesUtil.mainWhite,
+            borderBottomColor:
+              errors.username?.type === "required" || loginError != null
+                ? "red"
+                : "black",
+          }}
+        >
           <Controller
             control={control}
             rules={{
@@ -78,6 +94,7 @@ function LoginPage({ navigation }: any) {
               <TextInput
                 onBlur={onBlur}
                 onChangeText={onChange}
+                onFocus={clearLoginError}
                 style={{
                   paddingTop: 2,
                   paddingBottom: 2,
@@ -91,7 +108,19 @@ function LoginPage({ navigation }: any) {
           />
         </View>
         <Text>Password:</Text>
-        <View style={loginStyles.inputBox}>
+        <View
+          style={{
+            ...loginStyles.inputBox,
+            borderColor:
+              errors.password?.type === "required" || loginError != null
+                ? "red"
+                : stylesUtil.mainWhite,
+            borderBottomColor:
+              errors.password?.type === "required" || loginError != null
+                ? "red"
+                : "black",
+          }}
+        >
           <Controller
             control={control}
             rules={{
@@ -101,6 +130,7 @@ function LoginPage({ navigation }: any) {
               <TextInput
                 onBlur={onBlur}
                 onChangeText={onChange}
+                onFocus={clearLoginError}
                 style={{
                   paddingTop: 2,
                   paddingBottom: 2,
@@ -114,20 +144,22 @@ function LoginPage({ navigation }: any) {
             name="password"
           />
         </View>
-        {loginError != null ? (
+
+        <View style={loginStyles.fpContainer}>
           <Text
             style={{
               fontSize: 10,
               color: "red",
             }}
           >
-            {loginError}
+            {errors.password?.type === "required" ||
+            errors.username?.type === "required"
+              ? "The fields are required"
+              : loginError != null
+              ? loginError
+              : ""}
           </Text>
-        ) : (
-          ""
-        )}
 
-        <View style={loginStyles.fpContainer}>
           <Pressable onPress={forgotPasswordPress}>
             <Text
               style={{
@@ -148,7 +180,7 @@ function LoginPage({ navigation }: any) {
         >
           <Pressable
             style={loginStyles.loginButton}
-            onPress={handleSubmit(onSubmit)}
+            onPress={handleSubmit(login)}
           >
             <Text
               style={{
@@ -215,9 +247,11 @@ const loginStyles = StyleSheet.create({
     padding: 0,
   },
   fpContainer: {
-    width: windowWidth - 110,
+    flexDirection: "row",
+    alignContent: "center",
+    justifyContent: "space-between",
+    width: windowWidth - 90,
     marginTop: -1,
-    alignItems: "flex-end",
   },
   loginButton: {
     paddingHorizontal: 40,
