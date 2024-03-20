@@ -1,9 +1,18 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Dimensions,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import stylesUtil from "../../styling/MainStyles";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 interface signUpForm {}
+
+const windowWidth = Dimensions.get("window").width;
 
 function CreateAccount({ navigation }: any) {
   const [formType, setFormType] = useState<String>("Default");
@@ -29,18 +38,9 @@ function CreateAccount({ navigation }: any) {
     setFormStep(formStep + 1);
   };
 
-  const goBack = () => {
-    formStep > 0 ? setFormStep(formStep - 1) : null;
-  };
-
   return (
     <View style={SignUpStyles.container}>
-      <View
-        style={{
-          marginLeft: 5,
-          marginBottom: 50,
-        }}
-      >
+      <View style={SignUpStyles.headerContainer}>
         <Pressable
           onPress={() => {
             navigation.goBack();
@@ -49,133 +49,124 @@ function CreateAccount({ navigation }: any) {
           <Text
             style={{
               fontSize: 16,
+              color: "blue",
             }}
           >
-            Return
+            Back
           </Text>
         </Pressable>
       </View>
-      <View
-        style={{
-          alignItems: "center",
-        }}
-      >
+      <View style={SignUpStyles.formContainer}>
+        <Text
+          style={{
+            fontSize: 30,
+            fontWeight: "500",
+            textAlign: "center",
+          }}
+        >
+          Sign up
+        </Text>
         <Text
           style={{
             fontWeight: "400",
-            fontSize: 24,
+            fontSize: 16,
             marginBottom: 10,
+            textAlign: "center",
+            width: windowWidth - 110,
           }}
         >
-          Start creating an account!
+          Lets get started. Take control of owning your rental with all the info
+          you'll need.
         </Text>
-        <View style={SignUpStyles.formContainer}>
-          <Text>Name:</Text>
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                onBlur={onBlur}
-                onChangeText={onChange}
-                style={SignUpStyles.formInput}
-                value={value}
-                placeholder="Marvin Mcfadden"
-              />
-            )}
-            name="name"
-          />
-          <Text>Email:</Text>
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                onBlur={onBlur}
-                onChangeText={onChange}
-                style={SignUpStyles.formInput}
-                value={value}
-                placeholder="Email@example.com"
-              />
-            )}
-            name="email"
-          />
-        </View>
+        <Text>Name:</Text>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              onBlur={onBlur}
+              onChangeText={onChange}
+              style={SignUpStyles.formInput}
+              value={value}
+              placeholder="Marvin Mcfadden"
+            />
+          )}
+          name="name"
+        />
+        <Text>Email:</Text>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              onBlur={onBlur}
+              onChangeText={onChange}
+              style={SignUpStyles.formInput}
+              value={value}
+              placeholder="Email@example.com"
+            />
+          )}
+          name="email"
+        />
+        <Text>Username:</Text>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              onBlur={onBlur}
+              onChangeText={onChange}
+              style={SignUpStyles.formInput}
+              value={value}
+              placeholder="Username"
+            />
+          )}
+          name="username"
+        />
+        <Text>Password:</Text>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              onBlur={onBlur}
+              onChangeText={onChange}
+              style={SignUpStyles.formInput}
+              value={value}
+              placeholder="Password"
+              secureTextEntry
+            />
+          )}
+          name="password"
+        />
+        <Text>Confirm password:</Text>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              onBlur={onBlur}
+              onChangeText={onChange}
+              style={SignUpStyles.formInput}
+              value={value}
+              placeholder="Confirm Password"
+              secureTextEntry
+            />
+          )}
+          name="confirmPassword"
+        />
       </View>
-      <View
-        style={{
-          alignItems: "center",
-        }}
-      >
-        <View style={SignUpStyles.formContainer}>
-          <Text>Username:</Text>
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                onBlur={onBlur}
-                onChangeText={onChange}
-                style={SignUpStyles.formInput}
-                value={value}
-                placeholder="Username"
-              />
-            )}
-            name="username"
-          />
-          <Text>Password:</Text>
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                onBlur={onBlur}
-                onChangeText={onChange}
-                style={SignUpStyles.formInput}
-                value={value}
-                placeholder="Password"
-                secureTextEntry
-              />
-            )}
-            name="password"
-          />
-          <Text>Confirm password:</Text>
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                onBlur={onBlur}
-                onChangeText={onChange}
-                style={SignUpStyles.formInput}
-                value={value}
-                placeholder="Confirm Password"
-                secureTextEntry
-              />
-            )}
-            name="confirmPassword"
-          />
-        </View>
-      </View>
-      <View
-        style={{
-          marginTop: 5,
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          rowGap: 10,
-        }}
-      >
+      <View style={SignUpStyles.ctaContainer}>
         <Pressable
           style={SignUpStyles.proceedButton}
           onPress={proceedCreateAccount}
@@ -193,22 +184,33 @@ const SignUpStyles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: stylesUtil.mainWhite,
     justifyContent: "center",
+    alignItems: "center",
+  },
+  headerContainer: {
+    width: windowWidth - 50,
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "flex-end",
   },
   ctaContainer: {
-    flexDirection: "row",
-    columnGap: 10,
-    justifyContent: "space-between",
+    flex: 4,
+    marginTop: 5,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    flexDirection: "column",
   },
   formContainer: {
+    flex: 8,
     flexDirection: "column",
-    rowGap: 5,
+    rowGap: 6,
+    justifyContent: "flex-end",
   },
   formInput: {
     borderWidth: 1,
     borderBottomColor: "black",
     borderColor: stylesUtil.mainWhite,
     marginHorizontal: 10,
-    width: 250,
+    width: windowWidth - 120,
     borderRadius: 5,
     marginBottom: 5,
     paddingHorizontal: 10,
