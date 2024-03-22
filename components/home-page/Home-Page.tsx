@@ -18,22 +18,25 @@ function Home({ navigation }: any) {
       <View style={homeStyles.headerContainer}>
         <View
           style={{
-            flex: 10,
+            flex: 2,
             flexDirection: "row",
-            flexWrap: "wrap",
             justifyContent: "center",
-            borderWidth: 1,
           }}
         >
           <Image
-            style={{ width: 50, height: 50 }}
+            style={{
+              width: screenWidth * 0.125,
+              height: screenWidth * 0.125,
+              marginLeft: screenWidth * 0.325,
+            }}
             source={require("../../assets/iconMain.png")}
           />
         </View>
         <View
           style={{
             flex: 1,
-            flexWrap: "wrap",
+            flexDirection: "row",
+            justifyContent: "flex-end",
           }}
         >
           <Pressable>
@@ -41,7 +44,10 @@ function Home({ navigation }: any) {
           </Pressable>
         </View>
       </View>
-      <View style={homeStyles.mainContainer}></View>
+      <View style={homeStyles.mainContainer}>
+        <Text>hi</Text>
+      </View>
+      <View style={homeStyles.footerContainer}></View>
     </View>
   );
 }
@@ -53,8 +59,6 @@ const homeStyles = StyleSheet.create({
   },
   headerContainer: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: "black",
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
@@ -62,7 +66,14 @@ const homeStyles = StyleSheet.create({
     marginHorizontal: screenWidth * 0.02,
   },
   mainContainer: {
-    flex: 10,
+    flex: 12,
+    flexDirection: "row",
+    justifyContent: "center",
+    borderWidth: 1,
+  },
+  footerContainer: {
+    flex: 2,
+    borderWidth: 1,
   },
 });
 
