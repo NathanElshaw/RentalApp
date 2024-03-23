@@ -53,7 +53,8 @@ function LoginPage({ navigation }: any) {
   });
 
   const login = (data: LoginData) => {
-    setLoginError("Invalid username or password.");
+    // setLoginError("Invalid username or password.");
+    navigation.navigate("Home");
   };
 
   return (
