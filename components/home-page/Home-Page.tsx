@@ -47,7 +47,6 @@ function Home({ navigation }: any) {
       <View style={homeStyles.mainContainer}>
         <Text>hi</Text>
       </View>
-      <View style={homeStyles.footerContainer}></View>
     </View>
   );
 }
