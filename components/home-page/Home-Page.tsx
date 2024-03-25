@@ -4,9 +4,11 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
 import stylesUtil from "../../styling/MainStyles";
+import { Controller, useForm } from "react-hook-form";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -45,11 +47,123 @@ function Home({ navigation }: any) {
         </View>
       </View>
       <View style={homeStyles.mainContainer}>
-        <Text>hi</Text>
+        <NoUnitCta />
       </View>
+      <View style={homeStyles.footerContainer}></View>
     </View>
   );
 }
+
+const NoUnitCta = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      unitCode: "",
+    },
+  });
+
+  const clearError = () => {
+    if (errors.unitCode) errors.unitCode.type = "";
+  };
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+
+  return (
+    <View style={homeStyles.joinUnitCta}>
+      <Text
+        style={{
+          textAlign: "center",
+          width: screenWidth - 100,
+          fontSize: 26,
+          fontWeight: "700",
+          marginBottom: screenHeight * 0.01,
+        }}
+      >
+        Join Unit
+      </Text>
+      <Text
+        style={{
+          textAlign: "center",
+          width: screenWidth - 100,
+          fontSize: 14,
+          fontWeight: "400",
+          marginBottom: screenHeight * 0.01,
+        }}
+      >
+        You currently arent apart of a unit, enter your unit code to join your
+        unit
+      </Text>
+      <Text
+        style={{
+          fontSize: 16,
+          fontWeight: "600",
+          marginBottom: screenHeight * 0.01,
+        }}
+      >
+        Code:
+      </Text>
+      <View style={homeStyles.formContainer}>
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput
+              onBlur={onBlur}
+              onChangeText={onChange}
+              onFocus={clearError}
+              style={{
+                ...homeStyles.formInput,
+                borderColor:
+                  errors.unitCode?.type === "required"
+                    ? "red"
+                    : stylesUtil.mainWhite,
+                borderBottomColor:
+                  errors.unitCode?.type === "required" ? "red" : "black",
+              }}
+              value={value}
+              placeholder="Join code"
+            />
+          )}
+          name={"unitCode"}
+        />
+        <View style={homeStyles.formErrorContainer}>
+          <Text
+            style={{
+              fontSize: 12,
+              fontWeight: "500",
+              color: "red",
+            }}
+          >
+            {errors.unitCode?.type === "required"
+              ? "This field is required"
+              : ""}
+          </Text>
+        </View>
+        <Pressable
+          style={homeStyles.joinUnitButton}
+          onPress={handleSubmit(onSubmit)}
+        >
+          <Text
+            style={{
+              color: stylesUtil.mainWhite,
+              fontSize: 18,
+              fontWeight: "600",
+            }}
+          >
+            Join
+          </Text>
+        </Pressable>
+      </View>
+    </View>
+  );
+};
 
 const homeStyles = StyleSheet.create({
   container: {
@@ -70,8 +184,42 @@ const homeStyles = StyleSheet.create({
     justifyContent: "center",
     borderWidth: 1,
   },
+  joinUnitCta: {
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  formContainer: {
+    alignItems: "center",
+  },
+  formInput: {
+    borderWidth: 1,
+    borderBottomColor: "black",
+    borderColor: stylesUtil.mainWhite,
+    marginHorizontal: 10,
+    width: screenWidth - 120,
+    borderRadius: 5,
+    marginBottom: 5,
+    paddingHorizontal: 10,
+    paddingBottom: 4,
+    fontSize: 18,
+  },
+  formErrorContainer: {
+    width: screenWidth - 120,
+    height: screenHeight * 0.02,
+    marginLeft: screenWidth * 0.05,
+    marginVertical: -4,
+  },
+  joinUnitButton: {
+    backgroundColor: stylesUtil.mainColor,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: screenHeight * 0.005,
+    width: screenWidth - 250,
+    height: screenHeight * 0.045,
+    borderRadius: 15,
+  },
   footerContainer: {
-    flex: 2,
+    flex: 1.5,
     borderWidth: 1,
   },
 });
