@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import stylesUtil from "../../styling/MainStyles";
 import { Controller, useForm } from "react-hook-form";
+import Spinner from "../globals/Spinner";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -58,7 +59,7 @@ const NoUnitCta = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting, isSubmitted },
   } = useForm({
     defaultValues: {
       unitCode: "",
@@ -70,97 +71,103 @@ const NoUnitCta = () => {
   };
 
   const onSubmit = (data: any) => {
-    console.log(data);
+    console.log(isSubmitting);
   };
 
   return (
     <View style={homeStyles.joinUnitCta}>
-      <Text
-        style={{
-          textAlign: "center",
-          width: screenWidth - 100,
-          fontSize: 26,
-          fontWeight: "700",
-          marginBottom: screenHeight * 0.01,
-        }}
-      >
-        Join Unit
-      </Text>
-      <Text
-        style={{
-          textAlign: "center",
-          width: screenWidth - 100,
-          fontSize: 14,
-          fontWeight: "400",
-          marginBottom: screenHeight * 0.01,
-        }}
-      >
-        You currently arent apart of a unit, enter your unit code to join your
-        unit
-      </Text>
-      <Text
-        style={{
-          fontSize: 16,
-          fontWeight: "600",
-          marginBottom: screenHeight * 0.01,
-        }}
-      >
-        Code:
-      </Text>
-      <View style={homeStyles.formContainer}>
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-          }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              onBlur={onBlur}
-              onChangeText={onChange}
-              onFocus={clearError}
-              style={{
-                ...homeStyles.formInput,
-                borderColor:
-                  errors.unitCode?.type === "required"
-                    ? "red"
-                    : stylesUtil.mainWhite,
-                borderBottomColor:
-                  errors.unitCode?.type === "required" ? "red" : "black",
-              }}
-              value={value}
-              placeholder="Join code"
-            />
-          )}
-          name={"unitCode"}
-        />
-        <View style={homeStyles.formErrorContainer}>
+      {isSubmitted == false ? (
+        <View>
           <Text
             style={{
-              fontSize: 12,
-              fontWeight: "500",
-              color: "red",
+              textAlign: "center",
+              width: screenWidth - 100,
+              fontSize: 26,
+              fontWeight: "700",
+              marginBottom: screenHeight * 0.01,
             }}
           >
-            {errors.unitCode?.type === "required"
-              ? "This field is required"
-              : ""}
+            Join a Unit!
           </Text>
-        </View>
-        <Pressable
-          style={homeStyles.joinUnitButton}
-          onPress={handleSubmit(onSubmit)}
-        >
           <Text
             style={{
-              color: stylesUtil.mainWhite,
-              fontSize: 18,
+              textAlign: "center",
+              width: screenWidth - 100,
+              fontSize: 14,
+              fontWeight: "400",
+              marginBottom: screenHeight * 0.01,
+            }}
+          >
+            You currently arent apart of a unit, enter your unit code to join
+            your unit
+          </Text>
+          <Text
+            style={{
+              fontSize: 16,
               fontWeight: "600",
+              marginBottom: screenHeight * 0.01,
             }}
           >
-            Join
+            Code:
           </Text>
-        </Pressable>
-      </View>
+          <View style={homeStyles.formContainer}>
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  onFocus={clearError}
+                  style={{
+                    ...homeStyles.formInput,
+                    borderColor:
+                      errors.unitCode?.type === "required"
+                        ? "red"
+                        : stylesUtil.mainWhite,
+                    borderBottomColor:
+                      errors.unitCode?.type === "required" ? "red" : "black",
+                  }}
+                  value={value}
+                  placeholder="Join code"
+                />
+              )}
+              name={"unitCode"}
+            />
+            <View style={homeStyles.formErrorContainer}>
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontWeight: "500",
+                  color: "red",
+                }}
+              >
+                {errors.unitCode?.type === "required"
+                  ? "This field is required"
+                  : ""}
+              </Text>
+            </View>
+            <Pressable
+              style={homeStyles.joinUnitButton}
+              onPress={handleSubmit(onSubmit)}
+            >
+              <Text
+                style={{
+                  color: stylesUtil.mainWhite,
+                  fontSize: 18,
+                  fontWeight: "600",
+                }}
+              >
+                Join
+              </Text>
+            </Pressable>
+          </View>
+        </View>
+      ) : (
+        <Spinner color={stylesUtil.mainColor} />
+      )}
     </View>
   );
 };
@@ -217,6 +224,9 @@ const homeStyles = StyleSheet.create({
     width: screenWidth - 250,
     height: screenHeight * 0.045,
     borderRadius: 15,
+  },
+  spinnerContainer: {
+    justifyContent: "center",
   },
   footerContainer: {
     flex: 1.5,
