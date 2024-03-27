@@ -15,7 +15,17 @@ const screenWidth = Dimensions.get("window").width;
 
 const screenHeight = Dimensions.get("window").height;
 
+interface user {
+  name: string;
+  username: string;
+}
+
 function Home({ navigation }: any) {
+  const dummyUser: user = {
+    name: "Nathan",
+    username: "Coolname",
+  };
+
   return (
     <View style={homeStyles.container}>
       <View style={homeStyles.headerContainer}>
@@ -48,7 +58,8 @@ function Home({ navigation }: any) {
         </View>
       </View>
       <View style={homeStyles.mainContainer}>
-        <NoUnitCta />
+        {/* <NoUnitCta /> */}
+        <UserHomePage {...dummyUser} />
       </View>
       <View style={homeStyles.footerContainer}></View>
     </View>
@@ -172,6 +183,23 @@ const NoUnitCta = () => {
   );
 };
 
+const UserHomePage = (user: user) => {
+  return (
+    <View>
+      <View style={homeStyles.userGreeting}>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "600",
+          }}
+        >
+          Welcome, {user.name}!
+        </Text>
+      </View>
+    </View>
+  );
+};
+
 const homeStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -227,6 +255,10 @@ const homeStyles = StyleSheet.create({
   },
   spinnerContainer: {
     justifyContent: "center",
+  },
+  //User Styles
+  userGreeting: {
+    width: screenWidth,
   },
   footerContainer: {
     flex: 1.5,
