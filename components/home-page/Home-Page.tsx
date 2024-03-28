@@ -18,12 +18,20 @@ const screenHeight = Dimensions.get("window").height;
 interface user {
   name: string;
   username: string;
+  housingInfo: {
+    rent: number;
+    paid: number;
+  };
 }
 
 function Home({ navigation }: any) {
   const dummyUser: user = {
     name: "Nathan",
     username: "Coolname",
+    housingInfo: {
+      rent: 1000,
+      paid: 500,
+    },
   };
 
   return (
@@ -184,6 +192,8 @@ const NoUnitCta = () => {
 };
 
 const UserHomePage = (user: user) => {
+  const rentalInfo = user.housingInfo;
+
   return (
     <View>
       <View style={homeStyles.userGreeting}>
@@ -195,6 +205,17 @@ const UserHomePage = (user: user) => {
         >
           Welcome, {user.name}!
         </Text>
+      </View>
+      <View>
+        <Text>You currently owe: {rentalInfo.rent}</Text>
+        <Text>You've paid: {rentalInfo.paid}</Text>
+        <Pressable>
+          <Text>
+            {rentalInfo.rent - rentalInfo.paid !== 0
+              ? "Make Payment"
+              : "All caught up!"}
+          </Text>
+        </Pressable>
       </View>
     </View>
   );
