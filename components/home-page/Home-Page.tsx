@@ -19,6 +19,8 @@ interface user {
   name: string;
   username: string;
   housingInfo: {
+    unitNumber?: number;
+    address: string;
     rent: number;
     paid: number;
   };
@@ -29,8 +31,10 @@ function Home({ navigation }: any) {
     name: "Nathan",
     username: "Coolname",
     housingInfo: {
+      unitNumber: 12,
+      address: "1234 Example Ave",
       rent: 1000,
-      paid: 500,
+      paid: 1000,
     },
   };
 
@@ -195,7 +199,7 @@ const UserHomePage = (user: user) => {
   const rentalInfo = user.housingInfo;
 
   return (
-    <View>
+    <View style={homeStyles.userPageContainer}>
       <View style={homeStyles.userGreeting}>
         <Text
           style={{
@@ -205,17 +209,42 @@ const UserHomePage = (user: user) => {
         >
           Welcome, {user.name}!
         </Text>
+        <Text>
+          Unit: {rentalInfo.unitNumber} at {rentalInfo.address}
+        </Text>
       </View>
-      <View>
-        <Text>You currently owe: {rentalInfo.rent}</Text>
+
+      <View style={homeStyles.userPaymentInfoContainer}>
+        <Text>Your currently rent: {rentalInfo.rent}</Text>
         <Text>You've paid: {rentalInfo.paid}</Text>
-        <Pressable>
-          <Text>
-            {rentalInfo.rent - rentalInfo.paid !== 0
-              ? "Make Payment"
-              : "All caught up!"}
-          </Text>
-        </Pressable>
+        <View
+          style={{
+            alignItems: "center",
+          }}
+        >
+          <Pressable
+            style={
+              rentalInfo.rent - rentalInfo.paid !== 0
+                ? homeStyles.userPaymentNeedPaymentButton
+                : homeStyles.userPaymentAllPaidButton
+            }
+          >
+            <Text
+              style={{
+                color:
+                  rentalInfo.rent - rentalInfo.paid !== 0
+                    ? stylesUtil.mainWhite
+                    : "black",
+                fontSize: 16,
+                fontWeight: "600",
+              }}
+            >
+              {rentalInfo.rent - rentalInfo.paid !== 0
+                ? "Make Payment"
+                : "All caught up!"}
+            </Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   );
@@ -278,8 +307,32 @@ const homeStyles = StyleSheet.create({
     justifyContent: "center",
   },
   //User Styles
+  userPageContainer: {
+    flex: 1,
+  },
   userGreeting: {
     width: screenWidth,
+    marginHorizontal: screenWidth * 0.02,
+  },
+  userPaymentInfoContainer: {
+    borderWidth: 1,
+    marginHorizontal: screenWidth * 0.02,
+  },
+  userPaymentNeedPaymentButton: {
+    width: screenWidth * 0.45,
+    backgroundColor: stylesUtil.mainColor,
+    paddingHorizontal: screenWidth * 0.05,
+    paddingVertical: screenHeight * 0.02,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  userPaymentAllPaidButton: {
+    width: screenWidth * 0.45,
+    backgroundColor: "lightgreen",
+    paddingHorizontal: screenWidth * 0.05,
+    paddingVertical: screenHeight * 0.02,
+    borderRadius: 10,
+    alignItems: "center",
   },
   footerContainer: {
     flex: 1.5,
