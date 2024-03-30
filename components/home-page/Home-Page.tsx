@@ -219,6 +219,24 @@ const UserHomePage = (user: user) => {
         <Text>You've paid: {rentalInfo.paid}</Text>
         <View
           style={{
+            borderWidth: 1,
+          }}
+        >
+          <View>
+            <Text>Reason for charge</Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            <Text>Amount: </Text>
+            <Text>${"1000"}</Text>
+          </View>
+          <View></View>
+        </View>
+        <View
+          style={{
             alignItems: "center",
           }}
         >
