@@ -219,25 +219,152 @@ const UserHomePage = (user: user) => {
         <Text>You've paid: {rentalInfo.paid}</Text>
         <View
           style={{
-            borderWidth: 1,
+            flexDirection: "column",
+            marginHorizontal: screenWidth * 0.02,
+            rowGap: screenHeight * 0.02,
           }}
         >
-          <View>
-            <Text>Reason for charge</Text>
+          {/*Added rendering of all current unapid charges here*/}
+          <View
+            style={{
+              borderWidth: 1,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: screenWidth * 0.05,
+              paddingVertical: screenHeight * 0.02,
+              borderRadius: 15,
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                marginLeft: screenWidth * 0.02,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: "600",
+                }}
+              >
+                Date
+              </Text>
+              <Text>Reason for charge</Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row-reverse",
+                marginLeft: screenWidth * 0.02,
+              }}
+            >
+              <View>
+                <Text
+                  style={{
+                    fontSize: 10,
+                  }}
+                >
+                  {""}
+                </Text>
+                <Text>${"1100"}</Text>
+              </View>
+            </View>
           </View>
           <View
             style={{
+              borderWidth: 1,
               flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: screenWidth * 0.05,
+              paddingVertical: screenHeight * 0.02,
+              borderRadius: 15,
             }}
           >
-            <Text>Amount: </Text>
-            <Text>${"1000"}</Text>
+            <View
+              style={{
+                flex: 1,
+                marginLeft: screenWidth * 0.02,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: "600",
+                }}
+              >
+                Date
+              </Text>
+              <Text>Reason for charge</Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row-reverse",
+                marginLeft: screenWidth * 0.02,
+              }}
+            >
+              <View>
+                <Text
+                  style={{
+                    fontSize: 10,
+                  }}
+                >
+                  {""}
+                </Text>
+                <Text>${"1100"}</Text>
+              </View>
+            </View>
           </View>
-          <View></View>
+          <View
+            style={{
+              borderWidth: 1,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: screenWidth * 0.05,
+              paddingVertical: screenHeight * 0.02,
+              borderRadius: 15,
+            }}
+          >
+            <View
+              style={{
+                flex: 1,
+                marginLeft: screenWidth * 0.02,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: "600",
+                }}
+              >
+                Date
+              </Text>
+              <Text>Reason for charge</Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row-reverse",
+                marginLeft: screenWidth * 0.02,
+              }}
+            >
+              <View>
+                <Text
+                  style={{
+                    fontSize: 10,
+                  }}
+                >
+                  {""}
+                </Text>
+                <Text>${"1100"}</Text>
+              </View>
+            </View>
+          </View>
         </View>
         <View
           style={{
             alignItems: "center",
+            marginTop: screenHeight * 0.015,
           }}
         >
           <Pressable
