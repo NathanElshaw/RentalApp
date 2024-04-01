@@ -2,6 +2,7 @@ import {
   Dimensions,
   Image,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -199,7 +200,7 @@ const UserHomePage = (user: user) => {
   const rentalInfo = user.housingInfo;
 
   return (
-    <View style={homeStyles.userPageContainer}>
+    <ScrollView style={homeStyles.userPageContainer}>
       <View style={homeStyles.userGreeting}>
         <Text
           style={{
@@ -364,34 +365,72 @@ const UserHomePage = (user: user) => {
         <View
           style={{
             alignItems: "center",
-            marginTop: screenHeight * 0.015,
+            marginVertical: screenHeight * 0.015,
           }}
         >
           <Pressable
-            style={
-              rentalInfo.rent - rentalInfo.paid !== 0
-                ? homeStyles.userPaymentNeedPaymentButton
-                : homeStyles.userPaymentAllPaidButton
-            }
+            style={{
+              ...homeStyles.homeButton,
+              backgroundColor: stylesUtil.mainColor,
+            }}
           >
             <Text
               style={{
-                color:
-                  rentalInfo.rent - rentalInfo.paid !== 0
-                    ? stylesUtil.mainWhite
-                    : "black",
+                color: stylesUtil.mainWhite,
                 fontSize: 16,
                 fontWeight: "600",
               }}
             >
-              {rentalInfo.rent - rentalInfo.paid !== 0
-                ? "Make Payment"
-                : "All caught up!"}
+              View All
             </Text>
           </Pressable>
         </View>
       </View>
-    </View>
+      <View style={homeStyles.issuesContainer}>
+        <View>
+          <Text>Issues:</Text>
+        </View>
+        <View style={homeStyles.issuesItemsContainer}>
+          <View>
+            <Text>No current issues</Text>
+          </View>
+        </View>
+        <View style={homeStyles.issuesCtaFooter}>
+          <Pressable
+            style={{
+              ...homeStyles.homeButton,
+              backgroundColor: "green",
+            }}
+          >
+            <Text
+              style={{
+                color: stylesUtil.mainWhite,
+                fontSize: 14,
+                fontWeight: "600",
+              }}
+            >
+              Create request
+            </Text>
+          </Pressable>
+          <Pressable
+            style={{
+              ...homeStyles.homeButton,
+              backgroundColor: stylesUtil.mainColor,
+            }}
+          >
+            <Text
+              style={{
+                color: stylesUtil.mainWhite,
+                fontSize: 14,
+                fontWeight: "600",
+              }}
+            >
+              View all
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -460,25 +499,29 @@ const homeStyles = StyleSheet.create({
     marginHorizontal: screenWidth * 0.02,
   },
   userPaymentInfoContainer: {
+    marginHorizontal: screenWidth * 0.02,
+  },
+  homeButton: {
+    paddingHorizontal: screenWidth * 0.05,
+    paddingVertical: screenHeight * 0.02,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  issuesContainer: {
     borderWidth: 1,
     marginHorizontal: screenWidth * 0.02,
   },
-  userPaymentNeedPaymentButton: {
-    width: screenWidth * 0.45,
-    backgroundColor: stylesUtil.mainColor,
-    paddingHorizontal: screenWidth * 0.05,
-    paddingVertical: screenHeight * 0.02,
-    borderRadius: 10,
+  issuesItemsContainer: {
     alignItems: "center",
+    marginVertical: screenHeight * 0.02,
   },
-  userPaymentAllPaidButton: {
-    width: screenWidth * 0.45,
-    backgroundColor: "lightgreen",
-    paddingHorizontal: screenWidth * 0.05,
-    paddingVertical: screenHeight * 0.02,
-    borderRadius: 10,
-    alignItems: "center",
+  issuesCtaFooter: {
+    marginHorizontal: screenWidth * 0.1,
+    marginVertical: screenHeight * 0.02,
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
+
   footerContainer: {
     flex: 1.5,
     borderWidth: 1,
