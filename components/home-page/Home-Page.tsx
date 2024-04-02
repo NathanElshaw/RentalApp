@@ -202,29 +202,39 @@ const UserHomePage = (user: user) => {
   return (
     <ScrollView style={homeStyles.userPageContainer}>
       <View style={homeStyles.userGreeting}>
-        <Text
-          style={{
-            fontSize: 20,
-            fontWeight: "600",
-          }}
-        >
-          Welcome, {user.name}!
-        </Text>
-        <Text>
-          Unit: {rentalInfo.unitNumber} at {rentalInfo.address}
-        </Text>
+        <View style={homeStyles.userGreetingItemsContainer}>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: "600",
+            }}
+          >
+            Welcome, {user.name}!
+          </Text>
+          <Text
+            style={{
+              fontSize: 12,
+              marginBottom: 1,
+            }}
+          >
+            Unit: {rentalInfo.unitNumber} at {rentalInfo.address}
+          </Text>
+        </View>
       </View>
 
       <View style={homeStyles.userPaymentInfoContainer}>
-        <Text>Your currently rent: {rentalInfo.rent}</Text>
-        <Text>You've paid: {rentalInfo.paid}</Text>
-        <View
-          style={{
-            flexDirection: "column",
-            marginHorizontal: screenWidth * 0.02,
-            rowGap: screenHeight * 0.02,
-          }}
-        >
+        <View style={homeStyles.userPaymentHeaderContainer}>
+          <Text>You currently owe:</Text>
+          <Text
+            style={{
+              fontSize: 25,
+              fontWeight: "600",
+            }}
+          >
+            $ {rentalInfo.rent}
+          </Text>
+        </View>
+        <View style={homeStyles.userPaymentRecentChargesContainer}>
           {/*Added rendering of all current unapid charges here*/}
           <View
             style={{
@@ -263,11 +273,19 @@ const UserHomePage = (user: user) => {
                 <Text
                   style={{
                     fontSize: 10,
+                    color: "green",
                   }}
                 >
-                  {""}
+                  Paid
                 </Text>
-                <Text>${"1100"}</Text>
+                <Text
+                  style={{
+                    color: "green",
+                    textDecorationLine: "line-through",
+                  }}
+                >
+                  ${"1100"}
+                </Text>
               </View>
             </View>
           </View>
@@ -312,7 +330,13 @@ const UserHomePage = (user: user) => {
                 >
                   {""}
                 </Text>
-                <Text>${"1100"}</Text>
+                <Text
+                  style={{
+                    color: "red",
+                  }}
+                >
+                  ${"400"}
+                </Text>
               </View>
             </View>
           </View>
@@ -357,7 +381,13 @@ const UserHomePage = (user: user) => {
                 >
                   {""}
                 </Text>
-                <Text>${"1100"}</Text>
+                <Text
+                  style={{
+                    color: "red",
+                  }}
+                >
+                  ${"600"}
+                </Text>
               </View>
             </View>
           </View>
@@ -392,7 +422,13 @@ const UserHomePage = (user: user) => {
         </View>
         <View style={homeStyles.issuesItemsContainer}>
           <View>
-            <Text>No current issues</Text>
+            <Text
+              style={{
+                color: "grey",
+              }}
+            >
+              No current issues
+            </Text>
           </View>
         </View>
         <View style={homeStyles.issuesCtaFooter}>
@@ -495,11 +531,34 @@ const homeStyles = StyleSheet.create({
     flex: 1,
   },
   userGreeting: {
-    width: screenWidth,
-    marginHorizontal: screenWidth * 0.02,
+    alignSelf: "center",
+    borderWidth: 2,
+    borderColor: stylesUtil.mainWhite,
+    borderBottomColor: "black",
+    borderRadius: 20,
+    width: screenWidth + screenWidth * 0.03,
+  },
+  userGreetingItemsContainer: {
+    marginHorizontal: screenWidth * 0.05,
   },
   userPaymentInfoContainer: {
-    marginHorizontal: screenWidth * 0.02,
+    alignSelf: "center",
+    borderWidth: 2,
+    borderColor: stylesUtil.mainWhite,
+    borderBottomColor: "black",
+    borderRadius: 20,
+    width: screenWidth + screenWidth * 0.03,
+  },
+  userPaymentHeaderContainer: {
+    marginVertical: screenHeight * 0.02,
+    marginHorizontal: screenWidth * 0.03,
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  userPaymentRecentChargesContainer: {
+    flexDirection: "column",
+    marginHorizontal: screenWidth * 0.05,
+    rowGap: screenHeight * 0.02,
   },
   homeButton: {
     paddingHorizontal: screenWidth * 0.05,
@@ -508,7 +567,7 @@ const homeStyles = StyleSheet.create({
     alignItems: "center",
   },
   issuesContainer: {
-    borderWidth: 1,
+    borderWidth: 0,
     marginHorizontal: screenWidth * 0.02,
   },
   issuesItemsContainer: {
