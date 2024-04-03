@@ -25,6 +25,7 @@ interface user {
     rent: number;
     paid: number;
   };
+  issues?: [{ name: string; issue: string; date: string; state: string }];
 }
 
 function Home({ navigation }: any) {
@@ -37,6 +38,14 @@ function Home({ navigation }: any) {
       rent: 1000,
       paid: 1000,
     },
+    issues: [
+      {
+        name: "basic",
+        issue: "some issue",
+        date: "March 31 2024",
+        state: "Seen",
+      },
+    ],
   };
 
   return (
@@ -417,19 +426,57 @@ const UserHomePage = (user: user) => {
         </View>
       </View>
       <View style={homeStyles.issuesContainer}>
-        <View>
-          <Text>Issues:</Text>
+        <View style={homeStyles.issuesHeaderContainer}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: "600",
+            }}
+          >
+            Issues:
+          </Text>
         </View>
         <View style={homeStyles.issuesItemsContainer}>
-          <View>
-            <Text
-              style={{
-                color: "grey",
-              }}
-            >
-              No current issues
-            </Text>
-          </View>
+          {user.issues != null ? (
+            user.issues.map((issues) => {
+              return (
+                <View
+                  style={{
+                    borderWidth: 1,
+                    width: screenWidth * 0.75,
+                    borderRadius: 20,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    paddingHorizontal: screenWidth * 0.05,
+                    paddingVertical: screenHeight * 0.02,
+                  }}
+                >
+                  <View
+                    style={{
+                      alignContent: "center",
+                    }}
+                  >
+                    <Text>Issue:</Text>
+                    <Text>{issues.name}</Text>
+                  </View>
+                  <View>
+                    <Text>{issues.date}</Text>
+                    <Text>{issues.state}</Text>
+                  </View>
+                </View>
+              );
+            })
+          ) : (
+            <View style={homeStyles.issuesNoItemsContainer}>
+              <Text
+                style={{
+                  color: "grey",
+                }}
+              >
+                No current issues
+              </Text>
+            </View>
+          )}
         </View>
         <View style={homeStyles.issuesCtaFooter}>
           <Pressable
@@ -567,12 +614,23 @@ const homeStyles = StyleSheet.create({
     alignItems: "center",
   },
   issuesContainer: {
-    borderWidth: 0,
-    marginHorizontal: screenWidth * 0.02,
+    alignSelf: "center",
+    borderWidth: 2,
+    borderColor: stylesUtil.mainWhite,
+    borderBottomColor: "black",
+    borderRadius: 20,
+    width: screenWidth + screenWidth * 0.03,
+  },
+  issuesHeaderContainer: {
+    marginHorizontal: screenWidth * 0.05,
   },
   issuesItemsContainer: {
     alignItems: "center",
     marginVertical: screenHeight * 0.02,
+  },
+  issuesNoItemsContainer: {
+    height: screenHeight * 0.1,
+    justifyContent: "center",
   },
   issuesCtaFooter: {
     marginHorizontal: screenWidth * 0.1,
