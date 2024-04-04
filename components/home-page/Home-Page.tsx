@@ -11,6 +11,7 @@ import {
 import stylesUtil from "../../styling/MainStyles";
 import { Controller, useForm } from "react-hook-form";
 import Spinner from "../globals/Spinner";
+import { useState } from "react";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -29,6 +30,8 @@ interface user {
 }
 
 function Home({ navigation }: any) {
+  const [menuItem, setMenuItem] = useState<number>(3);
+
   const dummyUser: user = {
     name: "Nathan",
     username: "Coolname",
@@ -83,7 +86,100 @@ function Home({ navigation }: any) {
         {/* <NoUnitCta /> */}
         <UserHomePage {...dummyUser} />
       </View>
-      <View style={homeStyles.footerContainer}></View>
+      <View style={homeStyles.footerContainer}>
+        <View style={homeStyles.footerMenuContainer}>
+          <Pressable
+            style={{
+              ...homeStyles.footerMenuItem,
+              backgroundColor:
+                menuItem === 1 ? stylesUtil.mainColor : stylesUtil.mainWhite,
+            }}
+            onPress={() => {
+              setMenuItem(1);
+            }}
+          >
+            <Text
+              style={{
+                color: menuItem === 1 ? stylesUtil.mainWhite : "black",
+              }}
+            >
+              1
+            </Text>
+          </Pressable>
+          <Pressable
+            style={{
+              ...homeStyles.footerMenuItem,
+              backgroundColor:
+                menuItem === 2 ? stylesUtil.mainColor : stylesUtil.mainWhite,
+            }}
+            onPress={() => {
+              setMenuItem(2);
+            }}
+          >
+            <Text
+              style={{
+                color: menuItem === 2 ? stylesUtil.mainWhite : "black",
+              }}
+            >
+              2
+            </Text>
+          </Pressable>
+          <Pressable
+            style={{
+              ...homeStyles.footerMenuItem,
+              backgroundColor:
+                menuItem === 3 ? stylesUtil.mainColor : stylesUtil.mainWhite,
+            }}
+            onPress={() => {
+              setMenuItem(3);
+            }}
+          >
+            <Text
+              style={{
+                color: menuItem === 3 ? stylesUtil.mainWhite : "black",
+              }}
+            >
+              3
+            </Text>
+          </Pressable>
+          <Pressable
+            style={{
+              ...homeStyles.footerMenuItem,
+              backgroundColor:
+                menuItem === 4 ? stylesUtil.mainColor : stylesUtil.mainWhite,
+            }}
+            onPress={() => {
+              setMenuItem(4);
+            }}
+          >
+            <Text
+              style={{
+                color: menuItem === 4 ? stylesUtil.mainWhite : "black",
+              }}
+            >
+              4
+            </Text>
+          </Pressable>
+          <Pressable
+            style={{
+              ...homeStyles.footerMenuItem,
+              backgroundColor:
+                menuItem === 5 ? stylesUtil.mainColor : stylesUtil.mainWhite,
+            }}
+            onPress={() => {
+              setMenuItem(5);
+            }}
+          >
+            <Text
+              style={{
+                color: menuItem === 5 ? stylesUtil.mainWhite : "black",
+              }}
+            >
+              5
+            </Text>
+          </Pressable>
+        </View>
+      </View>
     </View>
   );
 }
@@ -641,7 +737,19 @@ const homeStyles = StyleSheet.create({
 
   footerContainer: {
     flex: 1.5,
-    borderWidth: 1,
+    marginHorizontal: screenWidth * 0.075,
+  },
+  footerMenuContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: screenHeight * 0.01,
+  },
+  footerMenuItem: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: screenWidth * 0.12,
+    height: screenWidth * 0.12,
+    borderRadius: (screenWidth * 0.12) / 2,
   },
 });
 
