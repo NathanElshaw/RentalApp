@@ -339,6 +339,32 @@ const UserHomePage = (user: user) => {
             $ {rentalInfo.rent}
           </Text>
         </View>
+        <View
+          style={{
+            marginVertical: screenHeight * 0.01,
+            alignItems: "center",
+          }}
+        >
+          <Pressable
+            style={{
+              width: screenWidth * 0.85,
+              alignItems: "center",
+              backgroundColor: "green",
+              paddingVertical: screenHeight * 0.015,
+              borderRadius: 10,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "600",
+                color: stylesUtil.mainWhite,
+              }}
+            >
+              Make Payment
+            </Text>
+          </Pressable>
+        </View>
         <View style={homeStyles.userPaymentRecentChargesContainer}>
           {/*Added rendering of all current unapid charges here*/}
           <View
@@ -693,7 +719,7 @@ const homeStyles = StyleSheet.create({
     width: screenWidth + screenWidth * 0.03,
   },
   userPaymentHeaderContainer: {
-    marginVertical: screenHeight * 0.02,
+    marginTop: screenHeight * 0.015,
     marginHorizontal: screenWidth * 0.03,
     flexDirection: "column",
     alignItems: "center",
