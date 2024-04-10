@@ -12,10 +12,19 @@ import stylesUtil from "../../styling/MainStyles";
 import { Controller, useForm } from "react-hook-form";
 import Spinner from "../globals/Spinner";
 import { useState } from "react";
+import Footer from "../globals/Footer";
+import Header from "../globals/Header";
 
 const screenWidth = Dimensions.get("window").width;
 
 const screenHeight = Dimensions.get("window").height;
+
+interface issuesType {
+  name: string;
+  issue: string;
+  date: string;
+  state: string;
+}
 
 interface user {
   name: string;
@@ -26,7 +35,7 @@ interface user {
     rent: number;
     paid: number;
   };
-  issues?: [{ name: string; issue: string; date: string; state: string }];
+  issues?: issuesType[];
 }
 
 function Home({ navigation }: any) {
@@ -53,133 +62,12 @@ function Home({ navigation }: any) {
 
   return (
     <View style={homeStyles.container}>
-      <View style={homeStyles.headerContainer}>
-        <View
-          style={{
-            flex: 2,
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
-          <Image
-            style={{
-              width: screenWidth * 0.125,
-              height: screenWidth * 0.125,
-              marginLeft: screenWidth * 0.325,
-            }}
-            source={require("../../assets/iconMain.png")}
-          />
-        </View>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            justifyContent: "flex-end",
-          }}
-        >
-          <Pressable>
-            <Text>Account</Text>
-          </Pressable>
-        </View>
-      </View>
+      <Header />
       <View style={homeStyles.mainContainer}>
         {/* <NoUnitCta /> */}
-        <UserHomePage {...dummyUser} />
+        <UserHomePage {...dummyUser} {...navigation} />
       </View>
-      <View style={homeStyles.footerContainer}>
-        <View style={homeStyles.footerMenuContainer}>
-          <Pressable
-            style={{
-              ...homeStyles.footerMenuItem,
-              backgroundColor:
-                menuItem === 1 ? stylesUtil.mainColor : stylesUtil.mainWhite,
-            }}
-            onPress={() => {
-              setMenuItem(1);
-            }}
-          >
-            <Text
-              style={{
-                color: menuItem === 1 ? stylesUtil.mainWhite : "black",
-              }}
-            >
-              1
-            </Text>
-          </Pressable>
-          <Pressable
-            style={{
-              ...homeStyles.footerMenuItem,
-              backgroundColor:
-                menuItem === 2 ? stylesUtil.mainColor : stylesUtil.mainWhite,
-            }}
-            onPress={() => {
-              setMenuItem(2);
-            }}
-          >
-            <Text
-              style={{
-                color: menuItem === 2 ? stylesUtil.mainWhite : "black",
-              }}
-            >
-              2
-            </Text>
-          </Pressable>
-          <Pressable
-            style={{
-              ...homeStyles.footerMenuItem,
-              backgroundColor:
-                menuItem === 3 ? stylesUtil.mainColor : stylesUtil.mainWhite,
-            }}
-            onPress={() => {
-              setMenuItem(3);
-            }}
-          >
-            <Text
-              style={{
-                color: menuItem === 3 ? stylesUtil.mainWhite : "black",
-              }}
-            >
-              3
-            </Text>
-          </Pressable>
-          <Pressable
-            style={{
-              ...homeStyles.footerMenuItem,
-              backgroundColor:
-                menuItem === 4 ? stylesUtil.mainColor : stylesUtil.mainWhite,
-            }}
-            onPress={() => {
-              setMenuItem(4);
-            }}
-          >
-            <Text
-              style={{
-                color: menuItem === 4 ? stylesUtil.mainWhite : "black",
-              }}
-            >
-              4
-            </Text>
-          </Pressable>
-          <Pressable
-            style={{
-              ...homeStyles.footerMenuItem,
-              backgroundColor:
-                menuItem === 5 ? stylesUtil.mainColor : stylesUtil.mainWhite,
-            }}
-            onPress={() => {
-              setMenuItem(5);
-            }}
-          >
-            <Text
-              style={{
-                color: menuItem === 5 ? stylesUtil.mainWhite : "black",
-              }}
-            >
-              5
-            </Text>
-          </Pressable>
-        </View>
-      </View>
+      <Footer />
     </View>
   );
 }
@@ -301,7 +189,7 @@ const NoUnitCta = () => {
   );
 };
 
-const UserHomePage = (user: user) => {
+const UserHomePage = (user: any, { navigation }: any) => {
   const rentalInfo = user.housingInfo;
 
   return (
@@ -353,6 +241,9 @@ const UserHomePage = (user: user) => {
               paddingVertical: screenHeight * 0.015,
               borderRadius: 10,
             }}
+            onPress={() => {
+              user.navigate("MakePayment");
+            }}
           >
             <Text
               style={{
@@ -366,7 +257,7 @@ const UserHomePage = (user: user) => {
           </Pressable>
         </View>
         <View style={homeStyles.userPaymentRecentChargesContainer}>
-          {/*Added rendering of all current unapid charges here*/}
+          {/*Add rendering of all current unapid charges here*/}
           <View
             style={{
               borderWidth: 1,
@@ -560,9 +451,10 @@ const UserHomePage = (user: user) => {
         </View>
         <View style={homeStyles.issuesItemsContainer}>
           {user.issues != null ? (
-            user.issues.map((issues) => {
+            user.issues.map((issues: issuesType, index: number) => {
               return (
                 <View
+                  key={index}
                   style={{
                     borderWidth: 1,
                     width: screenWidth * 0.75,
@@ -643,14 +535,6 @@ const homeStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: stylesUtil.mainWhite,
-  },
-  headerContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    marginTop: screenHeight * 0.05,
-    marginHorizontal: screenWidth * 0.02,
   },
   mainContainer: {
     flex: 12,
@@ -759,23 +643,6 @@ const homeStyles = StyleSheet.create({
     marginVertical: screenHeight * 0.02,
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-
-  footerContainer: {
-    flex: 1.5,
-    marginHorizontal: screenWidth * 0.075,
-  },
-  footerMenuContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: screenHeight * 0.01,
-  },
-  footerMenuItem: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: screenWidth * 0.12,
-    height: screenWidth * 0.12,
-    borderRadius: (screenWidth * 0.12) / 2,
   },
 });
 
