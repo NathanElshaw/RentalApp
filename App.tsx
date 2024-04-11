@@ -10,8 +10,11 @@ import ForgotPassword from "./components/forgot-password-page/ForgotPassword";
 import Home from "./components/home-page/Home-Page";
 import CreateAccount from "./components/create-account-page/CreateAccount";
 import React from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import PaymentPage from "./components/charges-tab/PaymentPage";
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
@@ -22,10 +25,12 @@ export default function App() {
           tabBarStyle: { display: "none" },
         }}
       >
-        <Tab.Screen name="Login" component={LoginPage} />
-        <Tab.Screen name="forgotPassword" component={ForgotPassword} />
+        <Stack.Screen name="Login" component={LoginPage} />
+        <Stack.Screen name="forgotPassword" component={ForgotPassword} />
+        <Stack.Screen name="createAccount" component={CreateAccount} />
+
         <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="createAccount" component={CreateAccount} />
+        <Tab.Screen name="MakePayment" component={PaymentPage} />
       </Tab.Navigator>
     </NavigationContainer>
   );
