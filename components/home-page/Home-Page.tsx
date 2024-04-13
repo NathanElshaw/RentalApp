@@ -19,6 +19,11 @@ const screenWidth = Dimensions.get("window").width;
 
 const screenHeight = Dimensions.get("window").height;
 
+interface HomePageProps {
+  user: user;
+  navigation: any;
+}
+
 interface issuesType {
   name: string;
   issue: string;
@@ -38,36 +43,36 @@ interface user {
   issues?: issuesType[];
 }
 
+const dummyUser: user = {
+  name: "Nathan",
+  username: "Coolname",
+  housingInfo: {
+    unitNumber: 12,
+    address: "1234 Example Ave",
+    rent: 1000,
+    paid: 1000,
+  },
+  issues: [
+    {
+      name: "basic",
+      issue: "some issue",
+      date: "March 31 2024",
+      state: "Seen",
+    },
+  ],
+};
+
 function Home({ navigation }: any) {
   const [menuItem, setMenuItem] = useState<number>(3);
 
-  const dummyUser: user = {
-    name: "Nathan",
-    username: "Coolname",
-    housingInfo: {
-      unitNumber: 12,
-      address: "1234 Example Ave",
-      rent: 1000,
-      paid: 1000,
-    },
-    issues: [
-      {
-        name: "basic",
-        issue: "some issue",
-        date: "March 31 2024",
-        state: "Seen",
-      },
-    ],
-  };
-
   return (
     <View style={homeStyles.container}>
-      <Header />
+      <Header navigation={navigation} />
       <View style={homeStyles.mainContainer}>
         {/* <NoUnitCta /> */}
-        <UserHomePage {...dummyUser} {...navigation} />
+        <UserHomePage user={dummyUser} navigation={navigation} />
       </View>
-      <Footer />
+      <Footer defaultIcon={3} navigation={navigation} />
     </View>
   );
 }
@@ -189,7 +194,9 @@ const NoUnitCta = () => {
   );
 };
 
-const UserHomePage = (user: any, { navigation }: any) => {
+const UserHomePage: React.FC<HomePageProps> = (props: HomePageProps) => {
+  const user = props.user;
+  const navigation = props.navigation;
   const rentalInfo = user.housingInfo;
 
   return (
@@ -242,7 +249,7 @@ const UserHomePage = (user: any, { navigation }: any) => {
               borderRadius: 10,
             }}
             onPress={() => {
-              user.navigate("MakePayment");
+              navigation.navigate("MakePayment");
             }}
           >
             <Text
@@ -513,6 +520,9 @@ const UserHomePage = (user: any, { navigation }: any) => {
             style={{
               ...homeStyles.homeButton,
               backgroundColor: stylesUtil.mainColor,
+            }}
+            onPress={() => {
+              navigation.navigate("Requests");
             }}
           >
             <Text
