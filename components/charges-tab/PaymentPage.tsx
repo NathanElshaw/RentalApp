@@ -98,9 +98,32 @@ function PaymentPage({ navigation }: any) {
               />
             </Pressable>
           </View>
-          <Pressable>
-            <Text>Make payment</Text>
-          </Pressable>
+          <View
+            style={{
+              alignItems: "center",
+              marginVertical: screenHeight * 0.02,
+            }}
+          >
+            <Pressable
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "green",
+                width: screenWidth * 0.7,
+                height: screenHeight * 0.04,
+                borderRadius: 10,
+              }}
+            >
+              <Text
+                style={{
+                  color: stylesUtil.mainWhite,
+                  fontWeight: "600",
+                }}
+              >
+                Make payment
+              </Text>
+            </Pressable>
+          </View>
         </View>
       </View>
       <Footer />
