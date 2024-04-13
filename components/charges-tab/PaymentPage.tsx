@@ -16,25 +16,39 @@ import { useState } from "react";
 const screenWidth: number = Dimensions.get("screen").width;
 const screenHeight: number = Dimensions.get("screen").height;
 
-const tempBalance: number = 1250;
+const tempBalance: number = 1250.0;
 
 function PaymentPage({ navigation }: any) {
   const [payType, setPayType] = useState<number>(0);
-
+  //Make this a popup
   return (
     <View style={paymentPage.container}>
-      <Header />
+      <Header navigation={navigation} />
       <View style={paymentPage.mainContainer}>
         <View
           style={{
             justifyContent: "center",
           }}
         >
-          <Text>Payment Options:</Text>
           <View
             style={{
               alignItems: "center",
-              rowGap: 10,
+              marginVertical: screenHeight * 0.02,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "500",
+              }}
+            >
+              Select a payment option:
+            </Text>
+          </View>
+          <View
+            style={{
+              alignItems: "center",
+              rowGap: 15,
             }}
           >
             <Pressable
@@ -47,7 +61,23 @@ function PaymentPage({ navigation }: any) {
                 borderWidth: payType === 1 ? 3 : 1,
               }}
             >
-              <Text>Amount due</Text>
+              <View
+                style={{
+                  marginHorizontal: screenWidth * 0.02,
+                  marginTop: screenHeight * 0.005,
+                }}
+              >
+                <Text>Amount due</Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "500",
+                    marginLeft: screenWidth * 0.01,
+                  }}
+                >
+                  ${tempBalance * 0.75}
+                </Text>
+              </View>
             </Pressable>
             <Pressable
               onPress={() => {
@@ -59,8 +89,23 @@ function PaymentPage({ navigation }: any) {
                 borderWidth: payType === 2 ? 3 : 1,
               }}
             >
-              <Text>Minimum payment</Text>
-              <Text>${tempBalance * 0.31}</Text>
+              <View
+                style={{
+                  marginHorizontal: screenWidth * 0.02,
+                  marginTop: screenHeight * 0.005,
+                }}
+              >
+                <Text>Minimum payment:</Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "500",
+                    marginLeft: screenWidth * 0.01,
+                  }}
+                >
+                  ${tempBalance * 0.31}
+                </Text>
+              </View>
             </Pressable>
             <Pressable
               onPress={() => {
@@ -72,8 +117,23 @@ function PaymentPage({ navigation }: any) {
                 borderWidth: payType === 3 ? 3 : 1,
               }}
             >
-              <Text>Total balance</Text>
-              <Text>${tempBalance}</Text>
+              <View
+                style={{
+                  marginHorizontal: screenWidth * 0.02,
+                  marginTop: screenHeight * 0.005,
+                }}
+              >
+                <Text>Total balance:</Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "500",
+                    marginLeft: screenWidth * 0.01,
+                  }}
+                >
+                  ${tempBalance}
+                </Text>
+              </View>
             </Pressable>
             <Pressable
               onPress={() => {
@@ -85,17 +145,28 @@ function PaymentPage({ navigation }: any) {
                 borderWidth: payType === 4 ? 3 : 1,
               }}
             >
-              <Text>Custom amount</Text>
-              <TextInput
+              <View
                 style={{
-                  borderWidth: 1,
-                  borderColor: stylesUtil.mainWhite,
-                  borderBottomColor: "black",
-                  borderRadius: 5,
+                  marginHorizontal: screenWidth * 0.02,
+                  marginTop: screenHeight * 0.005,
                 }}
-                autoFocus={payType === 4 ? true : false}
-                editable={payType === 4 ? true : false}
-              />
+              >
+                <Text>Custom amount</Text>
+                <TextInput
+                  style={{
+                    borderWidth: 1,
+                    borderColor: stylesUtil.mainWhite,
+                    borderBottomColor: "black",
+                    borderRadius: 5,
+                    paddingHorizontal: screenWidth * 0.025,
+                    fontSize: 16,
+                    marginTop: screenHeight * 0.005,
+                  }}
+                  placeholder="$1000.00"
+                  autoFocus={payType === 4 ? true : false}
+                  editable={payType === 4 ? true : false}
+                />
+              </View>
             </Pressable>
           </View>
           <View
@@ -110,13 +181,14 @@ function PaymentPage({ navigation }: any) {
                 justifyContent: "center",
                 backgroundColor: "green",
                 width: screenWidth * 0.7,
-                height: screenHeight * 0.04,
+                height: screenHeight * 0.05,
                 borderRadius: 10,
               }}
             >
               <Text
                 style={{
                   color: stylesUtil.mainWhite,
+                  fontSize: 20,
                   fontWeight: "600",
                 }}
               >
@@ -126,7 +198,7 @@ function PaymentPage({ navigation }: any) {
           </View>
         </View>
       </View>
-      <Footer />
+      <Footer defaultIcon={2} navigation={navigation} />
     </View>
   );
 }
@@ -137,6 +209,7 @@ const paymentPage = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: stylesUtil.mainWhite,
+    zIndex: 1,
   },
 
   mainContainer: {
