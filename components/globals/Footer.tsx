@@ -1,18 +1,33 @@
-import { View, Pressable, Text } from "react-native";
+import { useState } from "react";
+import { View, Pressable, Text, StyleSheet, Dimensions } from "react-native";
+import stylesUtil from "../../styling/MainStyles";
 
-function Footer() {
+interface footerProps {
+  defaultIcon: number;
+  navigation: any;
+}
+
+const screenHeight: number = Dimensions.get("screen").height;
+const screenWidth: number = Dimensions.get("screen").width;
+
+//todo: get crruent tab selection and reflect it on the footer
+
+const Footer: React.FC<footerProps> = (props: footerProps) => {
+  const iconInt: number = props.defaultIcon;
+  const navigation = props.navigation;
+
+  const [menuItem, setMenuItem] = useState<number>(iconInt);
+
   return (
-    <View style={homeStyles.footerContainer}>
-      <View style={homeStyles.footerMenuContainer}>
+    <View style={footer.container}>
+      <View style={footer.menuContainer}>
         <Pressable
           style={{
-            ...homeStyles.footerMenuItem,
+            ...footer.menuItem,
             backgroundColor:
               menuItem === 1 ? stylesUtil.mainColor : stylesUtil.mainWhite,
           }}
-          onPress={() => {
-            setMenuItem(1);
-          }}
+          onPress={() => {}}
         >
           <Text
             style={{
@@ -24,12 +39,12 @@ function Footer() {
         </Pressable>
         <Pressable
           style={{
-            ...homeStyles.footerMenuItem,
+            ...footer.menuItem,
             backgroundColor:
               menuItem === 2 ? stylesUtil.mainColor : stylesUtil.mainWhite,
           }}
           onPress={() => {
-            setMenuItem(2);
+            navigation.navigate("MakePayment");
           }}
         >
           <Text
@@ -42,12 +57,12 @@ function Footer() {
         </Pressable>
         <Pressable
           style={{
-            ...homeStyles.footerMenuItem,
+            ...footer.menuItem,
             backgroundColor:
               menuItem === 3 ? stylesUtil.mainColor : stylesUtil.mainWhite,
           }}
           onPress={() => {
-            setMenuItem(3);
+            navigation.navigate("Home");
           }}
         >
           <Text
@@ -60,12 +75,12 @@ function Footer() {
         </Pressable>
         <Pressable
           style={{
-            ...homeStyles.footerMenuItem,
+            ...footer.menuItem,
             backgroundColor:
               menuItem === 4 ? stylesUtil.mainColor : stylesUtil.mainWhite,
           }}
           onPress={() => {
-            setMenuItem(4);
+            navigation.navigate("Requests");
           }}
         >
           <Text
@@ -78,12 +93,12 @@ function Footer() {
         </Pressable>
         <Pressable
           style={{
-            ...homeStyles.footerMenuItem,
+            ...footer.menuItem,
             backgroundColor:
               menuItem === 5 ? stylesUtil.mainColor : stylesUtil.mainWhite,
           }}
           onPress={() => {
-            setMenuItem(5);
+            navigation.navigate("SettingsPage");
           }}
         >
           <Text
@@ -97,4 +112,25 @@ function Footer() {
       </View>
     </View>
   );
-}
+};
+
+const footer = StyleSheet.create({
+  container: {
+    flex: 1.5,
+    marginHorizontal: screenWidth * 0.075,
+  },
+  menuContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: screenHeight * 0.01,
+  },
+  menuItem: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: screenWidth * 0.12,
+    height: screenWidth * 0.12,
+    borderRadius: (screenWidth * 0.12) / 2,
+  },
+});
+
+export default Footer;
