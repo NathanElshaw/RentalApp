@@ -27,7 +27,9 @@ const Footer: React.FC<footerProps> = (props: footerProps) => {
             backgroundColor:
               menuItem === 1 ? stylesUtil.mainColor : stylesUtil.mainWhite,
           }}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate("Rental");
+          }}
         >
           <Text
             style={{
