@@ -10,6 +10,7 @@ import stylesUtil from "../../styling/MainStyles";
 
 interface HeaderProps {
   navigation: any;
+  isAccountPage?: boolean;
 }
 
 const screenHeight: number = Dimensions.get("screen").height;
@@ -17,16 +18,42 @@ const screenWidth: number = Dimensions.get("screen").width;
 
 const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
   const navigation = props.navigation;
+  const isAccountPage = props.isAccountPage;
 
   return (
     <View style={header.container}>
       <View
         style={{
+          marginTop: -5,
           flex: 2,
           flexDirection: "row",
           justifyContent: "center",
         }}
       >
+        <View
+          style={{
+            display: isAccountPage != null || false ? "flex" : "none",
+            flex: 1,
+            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+          }}
+        >
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Home"); //possibly pass prop from page it came from?
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "500",
+              }}
+            >
+              Back
+            </Text>
+          </Pressable>
+        </View>
         <Pressable
           onPress={() => {
             navigation.navigate("Home");
@@ -36,7 +63,8 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
             style={{
               width: screenWidth * 0.125,
               height: screenWidth * 0.125,
-              marginLeft: screenWidth * 0.325,
+              marginLeft: isAccountPage === true ? 0 : screenWidth * 0.325,
+              marginRight: isAccountPage === true ? screenWidth * 0.42 : 0,
             }}
             source={require("../../assets/iconMain.png")}
           />
@@ -44,12 +72,17 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
       </View>
       <View
         style={{
+          display: isAccountPage != null || false ? "none" : "flex",
           flex: 1,
           flexDirection: "row",
           justifyContent: "flex-end",
         }}
       >
-        <Pressable>
+        <Pressable
+          onPress={() => {
+            navigation.navigate("Account");
+          }}
+        >
           <Text>Account</Text>
         </Pressable>
       </View>
