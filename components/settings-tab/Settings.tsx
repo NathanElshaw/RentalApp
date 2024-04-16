@@ -2,10 +2,15 @@ import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 import stylesUtil from "../../styling/MainStyles";
 import Footer from "../globals/Footer";
 import Header from "../globals/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import * as SecureStore from "expo-secure-store";
 interface settingProps {
   navigation: any;
 }
+
+const settings = async () => {
+  SecureStore.getItemAsync("defaultSettings");
+};
 
 const screenWidth: number = Dimensions.get("screen").width;
 const screenHeight: number = Dimensions.get("screen").height;
@@ -13,8 +18,20 @@ const screenHeight: number = Dimensions.get("screen").height;
 const Settings: React.FC<settingProps> = (props: settingProps) => {
   const navigation = props.navigation;
 
+  const [settingConfig, setSettingConfig] = useState<string>();
+
+  const getSettings = async () => {
+    let settings: string | null = await SecureStore.getItemAsync(
+      "defaultSettings"
+    );
+    if (settings) {
+      setSettingConfig(settings);
+    }
+  };
+
   const [darkMode, setDarkMode] = useState<boolean>(false);
 
+  console.log(settingConfig);
   return (
     <View style={settingsPage.container}>
       <Header navigation={navigation} />
