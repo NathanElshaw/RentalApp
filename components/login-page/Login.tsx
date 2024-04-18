@@ -9,7 +9,8 @@ import {
 } from "react-native";
 import stylesUtil from "../../styling/MainStyles";
 import { useForm, Controller } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import * as SecureStore from "expo-secure-store";
 
 /*
 Todo:
@@ -19,12 +20,20 @@ add background items
 */
 
 interface LoginData {
-  username: String;
-  password: String;
+  username: string;
+  password: string;
 }
 
 const windowWidth: number = Dimensions.get("window").width;
 const windowHeight: number = Dimensions.get("window").height;
+
+async function fetchJwt() {
+  SecureStore.getItemAsync("JwtToken");
+}
+
+async function fetchRefresh() {
+  SecureStore.getItemAsync("RefreshToken");
+}
 
 function LoginPage({ navigation }: any) {
   const [loginError, setLoginError] = useState<String>();
@@ -53,8 +62,24 @@ function LoginPage({ navigation }: any) {
   });
 
   const login = (data: LoginData) => {
+    const isValid = false;
     // setLoginError("Invalid username or password.");
-    navigation.navigate("Home");
+    useEffect(() => {
+      async function vaildateTokenSet() {
+        try {
+          console.log(await SecureStore.getItemAsync("JwtToken"));
+        } catch (e: any) {
+          return e;
+        }
+      }
+
+      async function tokenSet(Jwt: string, Ref: string) {
+        await SecureStore.setItemAsync("JwtToken", "Example Token");
+        await SecureStore.setItemAsync("RefreshToken", "Basic Refresh");
+      }
+
+      tokenSet(data.username, data.password);
+    });
   };
 
   return (
