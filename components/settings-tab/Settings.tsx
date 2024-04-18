@@ -19,7 +19,7 @@ const screenHeight: number = Dimensions.get("screen").height;
 const Settings: React.FC<settingProps> = (props: settingProps) => {
   const navigation = props.navigation;
 
-  const [settingConfig, setSettingConfig] = useState<settingsType>();
+  const [settingConfig, setSettingConfig] = useState<any>();
   useEffect(() => {
     const getSettings = async () => {
       let settings: string | null = await SecureStore.getItemAsync(
@@ -31,7 +31,7 @@ const Settings: React.FC<settingProps> = (props: settingProps) => {
       }
     };
     getSettings();
-  }, [settingConfig]);
+  });
 
   const [darkMode, setDarkMode] = useState<boolean>(false);
 
@@ -46,10 +46,10 @@ const Settings: React.FC<settingProps> = (props: settingProps) => {
           }}
         >
           {settingConfig != null
-            ? Object.keys(settingConfig).map((id: string, value: number) => {
+            ? Object.keys(settingConfig).map((key: any, value: any) => {
                 return (
                   <View
-                    key={id}
+                    key={key}
                     style={{
                       borderWidth: 1,
                       borderRadius: 10,
@@ -72,7 +72,7 @@ const Settings: React.FC<settingProps> = (props: settingProps) => {
                           fontWeight: "500",
                         }}
                       >
-                        {id}
+                        {key}
                       </Text>
                     </View>
                     <View
@@ -81,10 +81,14 @@ const Settings: React.FC<settingProps> = (props: settingProps) => {
                         marginHorizontal: screenWidth * 0.05,
                       }}
                     >
-                      {value == typeof Boolean ? (
+                      {typeof settingConfig[key] == typeof true ? (
                         <Pressable
                           onPress={() => {
-                            setDarkMode(!darkMode);
+                            const temp = settingConfig;
+
+                            temp[key] = !settingConfig[key];
+
+                            setSettingConfig(temp);
                           }}
                         >
                           <View
@@ -94,11 +98,11 @@ const Settings: React.FC<settingProps> = (props: settingProps) => {
                               width: screenWidth * 0.05,
                               height: screenWidth * 0.05,
                               borderColor:
-                                darkMode == true
+                                settingConfig[key] === true
                                   ? stylesUtil.mainColor
                                   : "black",
                               backgroundColor:
-                                darkMode == true
+                                settingConfig[key] === true
                                   ? stylesUtil.mainColor
                                   : stylesUtil.mainWhite,
                             }}
