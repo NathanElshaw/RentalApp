@@ -10,6 +10,7 @@ import {
 import stylesUtil from "../../styling/MainStyles";
 import { useForm, Controller } from "react-hook-form";
 import { useEffect, useState } from "react";
+import ReactNativeBiometrics, { BiometryTypes } from "react-native-biometrics";
 import * as SecureStore from "expo-secure-store";
 
 /*
@@ -24,19 +25,17 @@ interface LoginData {
   password: string;
 }
 
+const rnBiometrics = new ReactNativeBiometrics();
+
 const windowWidth: number = Dimensions.get("window").width;
 const windowHeight: number = Dimensions.get("window").height;
 
-async function fetchJwt() {
-  SecureStore.getItemAsync("JwtToken");
-}
-
-async function fetchRefresh() {
-  SecureStore.getItemAsync("RefreshToken");
-}
-
 function LoginPage({ navigation }: any) {
   const [loginError, setLoginError] = useState<String>();
+
+  const clearLoginError = () => {
+    loginError != null ? setLoginError(null as unknown as String) : "";
+  };
 
   const forgotPasswordPress = () => {
     navigation.navigate("forgotPassword");
@@ -44,10 +43,6 @@ function LoginPage({ navigation }: any) {
 
   const createAccountPress = () => {
     navigation.navigate("createAccount");
-  };
-
-  const clearLoginError = () => {
-    loginError != null ? setLoginError(null as unknown as String) : "";
   };
 
   const {
@@ -61,25 +56,23 @@ function LoginPage({ navigation }: any) {
     },
   });
 
-  const login = (data: LoginData) => {
-    const isValid = false;
-    // setLoginError("Invalid username or password.");
-    useEffect(() => {
-      async function vaildateTokenSet() {
-        try {
-          console.log(await SecureStore.getItemAsync("JwtToken"));
-        } catch (e: any) {
-          return e;
+  useEffect(() => {
+    async function setKey() {
+      const { biometryType } = await rnBiometrics.isSensorAvailable();
+      if ((await SecureStore.getItemAsync("Token")) !== null) {
+        if (biometryType === BiometryTypes.FaceID) {
+          console.log("FaceId");
         }
       }
+    }
 
-      async function tokenSet(Jwt: string, Ref: string) {
-        await SecureStore.setItemAsync("JwtToken", "Example Token");
-        await SecureStore.setItemAsync("RefreshToken", "Basic Refresh");
-      }
+    setKey();
+  });
 
-      tokenSet(data.username, data.password);
-    });
+  const login = (data: LoginData) => {
+    const isValid = false;
+    // setLoginError("Invalid username or password.")
+    navigation.navigate("Home");
   };
 
   return (
