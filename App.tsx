@@ -13,40 +13,37 @@ import Requests from "./components/request-tab/Requests";
 import Settings from "./components/settings-tab/Settings";
 import Rental from "./components/rental-info-tab/Rental";
 import Account from "./components/account-tab/Account";
-import * as SecureStore from "expo-secure-store";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
+const queryClient = new QueryClient();
+
 export default function App() {
-  useEffect(() => {
-    async function saveSettings() {
-      await SecureStore.setItemAsync("defaultSettings", "true");
-    }
-    saveSettings();
-  });
-
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          headerShown: false,
-          tabBarStyle: { display: "none" },
-        }}
-      >
-        <Stack.Screen name="Login" component={LoginPage} />
-        <Stack.Screen name="forgotPassword" component={ForgotPassword} />
-        <Stack.Screen name="createAccount" component={CreateAccount} />
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={{
+            headerShown: false,
+            tabBarStyle: { display: "none" },
+          }}
+        >
+          <Stack.Screen name="Login" component={LoginPage} />
+          <Stack.Screen name="forgotPassword" component={ForgotPassword} />
+          <Stack.Screen name="createAccount" component={CreateAccount} />
 
-        <Tab.Screen name="Rental" component={Rental} />
-        <Tab.Screen name="MakePayment" component={PaymentPage} />
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Requests" component={Requests} />
-        <Tab.Screen name="SettingsPage" component={Settings} />
+          <Tab.Screen name="Rental" component={Rental} />
+          <Tab.Screen name="MakePayment" component={PaymentPage} />
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Requests" component={Requests} />
+          <Tab.Screen name="SettingsPage" component={Settings} />
 
-        <Tab.Screen name="Account" component={Account} />
-      </Tab.Navigator>
-    </NavigationContainer>
+          <Tab.Screen name="Account" component={Account} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
 
