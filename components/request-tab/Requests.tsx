@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Header from "../globals/Header";
 import Footer from "../globals/Footer";
 import stylesUtil from "../../styling/MainStyles";
@@ -13,7 +13,9 @@ const Requests: React.FC<requestsProps> = (props: requestsProps) => {
   return (
     <View style={requestsPage.container}>
       <Header navigation={navigation} />
-      <View style={requestsPage.mainContainer}></View>
+      <View style={requestsPage.mainContainer}>
+        <Text>Requests</Text>
+      </View>
       <Footer defaultIcon={4} navigation={navigation} />
     </View>
   );
