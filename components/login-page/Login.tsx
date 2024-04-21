@@ -56,23 +56,20 @@ function LoginPage({ navigation }: any) {
     },
   });
 
-  useEffect(() => {
-    async function setKey() {
-      const { biometryType } = await rnBiometrics.isSensorAvailable();
-      if ((await SecureStore.getItemAsync("Token")) !== null) {
-        if (biometryType === BiometryTypes.FaceID) {
-          console.log("FaceId");
-        }
-      }
-    }
+  useEffect(() => {});
 
-    setKey();
-  });
-
-  const login = (data: LoginData) => {
-    const isValid = false;
+  const login = async (data: LoginData) => {
     // setLoginError("Invalid username or password.")
-    navigation.navigate("Home");
+    // navigation.navigate("Home");
+
+    try {
+      const { biometryType } = await rnBiometrics.isSensorAvailable();
+      if (biometryType != null) {
+        console.log(biometryType);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
