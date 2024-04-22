@@ -25,7 +25,9 @@ interface LoginData {
   password: string;
 }
 
-const rnBiometrics = new ReactNativeBiometrics();
+const rnBiometrics = new ReactNativeBiometrics({
+  allowDeviceCredentials: true,
+});
 
 const windowWidth: number = Dimensions.get("window").width;
 const windowHeight: number = Dimensions.get("window").height;
@@ -63,9 +65,11 @@ function LoginPage({ navigation }: any) {
     // navigation.navigate("Home");
 
     try {
-      const { biometryType } = await rnBiometrics.isSensorAvailable();
-      if (biometryType != null) {
-        console.log(biometryType);
+      const { success } = await rnBiometrics.simplePrompt({
+        promptMessage: "Confirm",
+      });
+      if (success) {
+        console.log(await rnBiometrics.isSensorAvailable());
       }
     } catch (e) {
       console.log(e);
