@@ -62,18 +62,19 @@ function LoginPage({ navigation }: any) {
 
   const login = async (data: LoginData) => {
     // setLoginError("Invalid username or password.")
-    // navigation.navigate("Home");
+    navigation.navigate("Home");
 
-    try {
-      const { success } = await rnBiometrics.simplePrompt({
-        promptMessage: "Confirm",
-      });
-      if (success) {
-        console.log(await rnBiometrics.isSensorAvailable());
-      }
-    } catch (e) {
-      console.log(e);
-    }
+    // try {
+    //   const { success } = await rnBiometrics.createSignature({
+    //     payload: "FaceId",
+    //     promptMessage: "SignIn",
+    //   });
+    //   if (success) {
+    //     console.log(rnBiometrics.isSensorAvailable());
+    //   }
+    // } catch (e) {
+    //   console.log(e);
+    // }
   };
 
   return (
