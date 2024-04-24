@@ -541,6 +541,10 @@ const UserHomePage: React.FC<HomePageProps> = (props: HomePageProps) => {
   );
 };
 
+const PrivUserHomePage: React.FC<HomePageProps> = (props: HomePageProps) => {
+  return <View></View>;
+};
+
 const homeStyles = StyleSheet.create({
   container: {
     flex: 1,
