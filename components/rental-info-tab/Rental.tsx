@@ -7,6 +7,21 @@ interface rentalProps {
   navigation: any;
 }
 
+interface rentalData {
+  unitAddress: string;
+  beds: number;
+  baths: number;
+  unitNumber: number;
+  hasPets: boolean;
+  renterAmount: number;
+  rentAmount: number;
+  rentDue: number;
+  rentPaid: number;
+  leaseStart: string;
+  rentDueDate: string;
+  leaseEnd: string;
+}
+
 const Rental: React.FC<rentalProps> = (props: rentalProps) => {
   const navigation = props.navigation;
 
