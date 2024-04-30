@@ -5,6 +5,7 @@ import Header from "../globals/Header";
 
 interface rentalProps {
   navigation: any;
+  rental?: rentalData;
 }
 
 interface rentalData {
@@ -18,12 +19,28 @@ interface rentalData {
   rentDue: number;
   rentPaid: number;
   leaseStart: string;
-  rentDueDate: string;
+  rentDueDate: number;
   leaseEnd: string;
 }
 
+const dummyRental: rentalData = {
+  unitAddress: "123 testing avg",
+  beds: 2,
+  baths: 1.5,
+  unitNumber: 12,
+  hasPets: true,
+  renterAmount: 2,
+  rentAmount: 1400,
+  rentDue: 0,
+  rentPaid: 1400,
+  leaseStart: "2024-1-1",
+  rentDueDate: 4,
+  leaseEnd: "2025-1-1",
+};
+
 const Rental: React.FC<rentalProps> = (props: rentalProps) => {
   const navigation = props.navigation;
+  const rental = props.rental;
 
   return (
     <View style={rentalPage.container}>
