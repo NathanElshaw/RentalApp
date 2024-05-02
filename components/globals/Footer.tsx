@@ -1,11 +1,27 @@
 import { useState } from "react";
 import { View, Pressable, Text, StyleSheet, Dimensions } from "react-native";
 import stylesUtil from "../../styling/MainStyles";
+import { rentalData } from "../rental-info-tab/Rental";
 
 interface footerProps {
   defaultIcon: number;
   navigation: any;
 }
+
+const dummyRental: rentalData = {
+  unitAddress: "123 testing avg",
+  beds: 2,
+  baths: 1.5,
+  unitNumber: 12,
+  hasPets: true,
+  renterAmount: 2,
+  rentAmount: 1400,
+  rentDue: 0,
+  rentPaid: 1400,
+  leaseStart: "2024-1-1",
+  rentDueDate: 4,
+  leaseEnd: "2025-1-1",
+};
 
 const screenHeight: number = Dimensions.get("screen").height;
 const screenWidth: number = Dimensions.get("screen").width;
@@ -120,6 +136,11 @@ const footer = StyleSheet.create({
   container: {
     flex: 1.5,
     marginHorizontal: screenWidth * 0.075,
+    width: screenWidth * 1.03,
+    paddingHorizontal: screenWidth * 0.08,
+    alignSelf: "center",
+    borderWidth: 2,
+    borderRadius: 15,
   },
   menuContainer: {
     flexDirection: "row",
