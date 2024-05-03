@@ -2,6 +2,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import stylesUtil from "../../styling/MainStyles";
 import Footer from "../globals/Footer";
 import Header from "../globals/Header";
+import { screenWidth } from "../globals/Defaults";
 
 interface rentalProps {
   navigation: any;
@@ -50,22 +51,26 @@ const Rental: React.FC<rentalProps> = (props: rentalProps) => {
     <View style={rentalPage.container}>
       <Header navigation={navigation} />
       <View style={rentalPage.mainContainer}>
-        <View>
+        <View style={rentalPage.detailContainer}>
           <Text>Address: {rental?.unitAddress}</Text>
           <Text>
             {!rental.unitNumber ? "" : `unit number: ${rental.unitNumber}`}
           </Text>
         </View>
-        <View>
+        <View style={rentalPage.detailContainer}>
           <Text>Beds: {rental.beds}</Text>
           <Text>Baths: {rental.baths}</Text>
         </View>
         <View>
-          <View>
+          <View style={rentalPage.detailContainer}>
             <Text>Rent amount: ${rental.rentAmount}</Text>
             <Text>Amount owed: ${rental.rentDue}</Text>
           </View>
-          <View>
+          <View
+            style={{
+              alignItems: "center",
+            }}
+          >
             <Pressable>
               <Text>
                 {rental.rentDue === 0 ? "All caught up!" : "Make Payment"}
@@ -89,6 +94,12 @@ const rentalPage = StyleSheet.create({
 
   mainContainer: {
     flex: 12,
+  },
+
+  detailContainer: {
+    justifyContent: "center",
+    flexDirection: "row",
+    columnGap: screenWidth * 0.1,
   },
 });
 
